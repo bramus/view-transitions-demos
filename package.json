@@ -1,0 +1,25 @@
+{
+	"name": "view-transitions-demos",
+	"version": "0.0.1",
+	"description": "View Transitions",
+	"scripts": {
+		"start": "http-server src -p 3000 -d false --no-dotfiles -c-1",
+		"lint": "prettier --check '{src,test,cli}/**/*.{ts,tsx,js,jsx,html,css}'",
+		"format": "prettier --write '{src,test,cli}/**/*.{ts,tsx,js,jsx,html,css}'",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"view-transitions"
+	],
+	"author": {
+		"name": "Bramus Van Damme",
+		"email": "bramus@bram.us",
+		"twitter": "@bramus",
+		"web": "https://www.bram.us/"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"http-server": "^14.1.1",
+		"prettier": "^3.1.1"
+	}
+}
