@@ -33,7 +33,7 @@ document.addEventListener('click', (e) => {
 		if (navigation.canGoBack) {
 			navigation.back();
 		} else {
-			navigation.navigate('/');
+			navigation.navigate(`${basePath}/`);
 		}
 	}
 });

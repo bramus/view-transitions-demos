@@ -42,7 +42,7 @@ document.addEventListener('click', (e) => {
 				},
 			});
 		} else {
-			navigation.navigate('/');
+			navigation.navigate(`${basePath}/`);
 		}
 	}
 });
