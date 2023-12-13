@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>View Transitions</title>
+	<script>
+		// Update the lastCompletedEntry value after page has loaded.
+		// Other pages on this site rely on that value …
+		document.addEventListener("DOMContentLoaded", (e) => {
+			const { id, index, key, sameDocument, url } = navigation.currentEntry;
+			localStorage.setItem("lastCompletedNavigationEntry", JSON.stringify({ id, index, key, sameDocument, url }));
+		});
+	</script>
+</head>
+<body>
+	<h1>View Transitions</h1>
+
+	<h2>Stack Navigator</h2>
+
+	<ul>
+		<li><a href="/stack-navigator/spa/">SPA</a></li>
+		<li><a href="/stack-navigator/mpa-to-spa/">MPA + Navigation API = SPA</a></li>
+		<li><a href="/stack-navigator/mpa/">MPA</a> <em>(👨‍🔬 Needs <code>#view-transition-on-navigation</code> flag)</em></li>
+	</ul>
+</body>
+</html>

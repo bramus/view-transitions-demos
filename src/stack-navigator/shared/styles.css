@@ -1,0 +1,241 @@
+@keyframes shrink {
+	to {
+		scale: 0.8;
+		opacity: 0.5;
+	}
+}
+@keyframes grow {
+	from {
+		scale: 0.8;
+		opacity: 0.5;
+	}
+}
+@keyframes slide-in {
+	from {
+		translate: 100vw 0;
+	}
+}
+@keyframes slide-out {
+	to {
+		translate: 100vw 0;
+	}
+}
+@keyframes scale-up {
+	from {
+		scale: 0;
+	}
+}
+@keyframes scale-down {
+	to {
+		scale: 0;
+	}
+}
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+}
+@keyframes fade-out {
+	to {
+		opacity: 0;
+	}
+}
+
+::view-transition {
+	background: black;
+}
+
+:root {
+	view-transition-name: none;
+}
+body {
+	view-transition-name: page;
+}
+
+::view-transition-group(page) {
+	animation-duration: 0.7s;
+}
+
+/* ::view-transition-old(page) {
+	outline: 10px solid hotpink;
+	outline-offset: -10px;
+}
+
+::view-transition-new(page) {
+	outline: 10px solid lime;
+	outline-offset: -10px;
+} */
+
+:root[data-transition="reload"] {
+	&::view-transition-old(page) {
+		display: none;
+	}
+	&::view-transition-new(page) {
+		animation-name: fade-in, scale-up;
+	}
+}
+
+:root[data-transition="push"] {
+	&::view-transition-old(page) {
+		&::view-transition-old(page) {
+			animation-name: shrink;
+			transform-origin: 100% 50%;
+		}
+	}
+	&::view-transition-new(page) {
+		animation-name: slide-in;
+	}
+}
+
+:root[data-transition="pop"] {
+	&::view-transition-old(page) {
+		animation-name: slide-out;
+		z-index: 1;
+	}
+	&::view-transition-new(page) {
+		animation-name: grow;
+		transform-origin: 100% 50%;
+	}
+}
+
+@layer reset {
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	ul[class] {
+		list-style: none;
+	}
+
+	img {
+		display: inline-block;
+	}
+
+	h1 {
+		margin-bottom: 0.5em;
+	}
+}
+
+@layer layout {
+	@layer general {
+		html {
+			background: white;
+		}
+
+		html,
+		body {
+			height: 100%;
+		}
+
+		body {
+			background: white;
+			font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+				"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+	}
+
+	@layer views {
+		.view {
+			position: fixed;
+			inset: 0;
+			overflow-y: auto;
+		}
+
+		.view h1 {
+			padding: 2rem 1rem 0.2rem 1rem;
+			position: sticky;
+			top: 0;
+			background: #fff;
+		}
+
+		.view .col {
+			padding: 0 1rem 2rem 1rem;
+		}
+	}
+
+	@layer components {
+		.tweets {
+			display: flex;
+			flex-direction: column;
+
+			> li {
+				border-bottom: 1px solid #ccc;
+			}
+
+			& a {
+				padding: 0.5em 0;
+				color: inherit !important;
+			}
+		}
+
+		:has(> img) {
+			display: flex;
+			gap: 0.5em;
+
+			&:hover {
+				background: aliceblue;
+				cursor: pointer;
+			}
+		}
+
+		.author {
+			font-weight: bold;
+		}
+
+		img {
+			align-self: start;
+			width: 3em;
+			height: auto;
+			aspect-ratio: 1;
+			flex-shrink: 0;
+			border-radius: 50%;
+			background: #ccc;
+		}
+
+		a {
+			text-decoration: none;
+			color: lightblue;
+
+			&:hover, &:active, &:focus, &:visited {
+				color: blue;
+			}
+		}
+
+		.tweet {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5em;
+
+			.handle {
+				font-size: 0.9em;
+			}
+
+			.content {
+				font-size: 1.2em;
+			}
+
+			.meta, .rt {
+				color: #6a6a6a;
+				font-size: 0.8em;
+				padding: 0.4rem 0;
+			}
+
+			.rt {
+				border-top: 1px solid #ccc;
+				border-bottom: 1px solid #ccc;
+				text-transform: uppercase;
+				padding: 0.8rem 0;
+
+				display: flex;
+				flex-direction: row;
+				gap: 0.4rem;
+
+				& b {
+						color: black;
+				}
+			}
+		}
+	}
+}
