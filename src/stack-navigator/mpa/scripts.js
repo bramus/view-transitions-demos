@@ -2,24 +2,24 @@
 // we need to keep track of this and adjust any URL matching using this value.
 const basePath = '/stack-navigator/mpa';
 
-// Keep track of the last fully completed NavigationEntry as `lastCompletedEntry`
+// Keep track of the last fully completed NavigationEntry as `lastSuccessfulEntry`
 // We’re gonna need this later on to compare things to.
-navigation.lastCompletedEntry = null;
+navigation.lastSuccessfulEntry = null;
 try {
-	navigation.lastCompletedEntry = JSON.parse(localStorage.getItem("lastCompletedNavigationEntry"));
+	navigation.lastSuccessfulEntry = JSON.parse(localStorage.getItem("lastSuccessfulNavigationEntry"));
 
 	// Since we host multiple demos on this same domain, we need to filter out navigations from pages that don’t start with this project’s basePath
-	if (!(new URL(navigation.lastCompletedEntry.url)).pathname.startsWith(basePath)) {
-		navigation.lastCompletedEntry = null;
+	if (!(new URL(navigation.lastSuccessfulEntry.url)).pathname.startsWith(basePath)) {
+		navigation.lastSuccessfulEntry = null;
 	}
 } catch (e) {
 	// NOOP
 }
 
-// Update the lastCompletedEntry value after page has loaded.
+// Update the lastSuccessfulEntry value after page has loaded.
 document.addEventListener("DOMContentLoaded", (e) => {
 	const { id, index, key, sameDocument, url } = navigation.currentEntry;
-	localStorage.setItem("lastCompletedNavigationEntry", JSON.stringify({ id, index, key, sameDocument, url }));
+	localStorage.setItem("lastSuccessfulNavigationEntry", JSON.stringify({ id, index, key, sameDocument, url }));
 });
 
 // Convert all UI back links to a UA back.
@@ -45,12 +45,12 @@ window.addEventListener("pagereveal", async (e) => {
 	// There is an automatic viewTransition, so the user comes from the same origin
 	if (e.viewTransition) {
 
-		if (!navigation.lastCompletedEntry) {
+		if (!navigation.lastSuccessfulEntry) {
 			e.viewTransition.skipTransition();
 			return;
 		}
 
-		const transitionClass = determineTransitionClass(navigation.lastCompletedEntry, navigation.currentEntry);
+		const transitionClass = determineTransitionClass(navigation.lastSuccessfulEntry, navigation.currentEntry);
 		document.documentElement.dataset.transition = transitionClass;
 
 		await e.viewTransition.finished;

@@ -2,12 +2,12 @@
 // we need to keep track of this and adjust any URL matching using this value.
 const basePath = '/stack-navigator/mpa-with-navigation-api';
 
-// Keep track of the last fully completed NavigationEntry as `lastCompletedEntry`
+// Keep track of the last fully completed NavigationEntry as `lastSuccessfulEntry`
 // We’re gonna need this because we can’t entirely rely on currentEntry
 // when intercepting. See next comment for more info.
-navigation.lastCompletedEntry = navigation?.currentEntry;
+navigation.lastSuccessfulEntry = navigation?.currentEntry;
 
-// Update the lastCompletedEntry value only *after* a navigation has
+// Update the lastSuccessfulEntry value only *after* a navigation has
 // fully completed. This to cater for race conditions on slow connections.
 //
 // Consider this scenario:
@@ -23,7 +23,7 @@ navigation.lastCompletedEntry = navigation?.currentEntry;
 // Same should happen to the View Transition: transition between index and
 // index, not between detail and index.
 navigation.addEventListener('navigatesuccess', e => {
-	navigation.lastCompletedEntry = e.currentTarget.currentEntry;
+	navigation.lastSuccessfulEntry = e.currentTarget.currentEntry;
 });
 
 // Convert all UI back links to a UA back.
@@ -83,7 +83,7 @@ navigation.addEventListener("navigate", (e) => {
 
 			// Push or Pop? Before we swap the markup, determine which animation to use for the View Transition
 			// @note: we can only do this detection here inside intercept as we need the new currentEntry to compare the old one to
-			const transitionClass = determineTransitionClass(navigation.lastCompletedEntry, navigation.currentEntry, e);
+			const transitionClass = determineTransitionClass(navigation.lastSuccessfulEntry, navigation.currentEntry, e);
 			document.documentElement.dataset.transition = transitionClass;
 
 			// Update the DOM … with a View Transition
