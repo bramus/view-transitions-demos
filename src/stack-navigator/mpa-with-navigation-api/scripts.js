@@ -27,7 +27,6 @@ navigation.addEventListener('navigatesuccess', e => {
 });
 
 // Convert all UI back links to a UA back.
-// Using the info field, we signal that the UI back button was used.
 //
 // If there is no previous navigation entry to go to
 // (e.g. user went directly to detail), then redirect to index.html
@@ -36,11 +35,7 @@ document.addEventListener('click', (e) => {
 		e.preventDefault();
 
 		if (navigation.canGoBack) {
-			navigation.back({
-				info: {
-					isUIBackButton: true,
-				},
-			});
+			navigation.back();
 		} else {
 			navigation.navigate(`${basePath}/`);
 		}
@@ -82,8 +77,10 @@ navigation.addEventListener("navigate", (e) => {
 			const $title = doc.querySelector("head title");
 
 			// Push or Pop? Before we swap the markup, determine which animation to use for the View Transition
-			// @note: we can only do this detection here inside intercept as we need the new currentEntry to compare the old one to
-			const transitionClass = determineTransitionClass(navigation.lastSuccessfulEntry, navigation.currentEntry, e);
+			// @note: We can only do this detection here inside intercept as we need the new currentEntry to compare the old one to
+			// @note: While we could get the destination.url from the event, that’s not sufficient.
+			//        In some cases we need to compare the indices of each entry to determine the class.
+			const transitionClass = determineTransitionClass(navigation.lastSuccessfulEntry, navigation.currentEntry);
 			document.documentElement.dataset.transition = transitionClass;
 
 			// Update the DOM … with a View Transition
@@ -126,15 +123,12 @@ const shouldNotIntercept = (navigationEvent) => {
 
 // Determine the View Transition class to use based on the old and new navigation entries
 // Also take the navigateEvent into account to detect UA back/forward navigations
-const determineTransitionClass = (oldNavigationEntry, newNavigationEntry, navigateEvent) => {
+const determineTransitionClass = (oldNavigationEntry, newNavigationEntry) => {
 	const currentURL = new URL(oldNavigationEntry.url);
 	const destinationURL = new URL(newNavigationEntry.url);
 
 	const currentPathname = currentURL.pathname.replace(basePath, '').replace("/index.html", "/");
 	const destinationPathname = destinationURL.pathname.replace(basePath, '').replace("/index.html", "/");
-
-	console.log(currentPathname);
-	console.log(destinationPathname);
 
 	if (currentPathname === destinationPathname) {
 		return "reload";
@@ -143,7 +137,7 @@ const determineTransitionClass = (oldNavigationEntry, newNavigationEntry, naviga
 	} else if (currentPathname.startsWith('/detail') && destinationPathname === "/") {
 		return "pop";
 	} else if (currentPathname.startsWith('/detail') && destinationPathname.startsWith('/detail')) {
-		if (isUIBackButton(navigateEvent) || isUABackButton(oldNavigationEntry, newNavigationEntry, navigateEvent)) {
+		if (isUABackButton(oldNavigationEntry, newNavigationEntry)) {
 			return "pop";
 		} else {
 			return "push";
@@ -158,20 +152,13 @@ const determineTransitionClass = (oldNavigationEntry, newNavigationEntry, naviga
 	}
 };
 
-// Determine if the UI back button was used
-const isUIBackButton = (navigateEvent) => {
-	return navigateEvent.info?.isUIBackButton === true;
-};
-
 // Determine if the UA back button was used to navigate
-const isUABackButton = (oldNavigationEntry, newNavigationEntry, navigateEvent) => {
-	if (navigateEvent.navigationType !== 'traverse') return false;
+const isUABackButton = (oldNavigationEntry, newNavigationEntry) => {
 	return (newNavigationEntry.index < oldNavigationEntry.index);
 };
 
 // Determine if the UA forward button was used to navigate
-const isUAForwardButton = (oldNavigationEntry, newNavigationEntry, navigateEvent) => {
-	if (navigateEvent.navigationType !== 'traverse') return false;
+const isUAForwardButton = (oldNavigationEntry, newNavigationEntry) => {
 	return (newNavigationEntry.index > oldNavigationEntry.index);
 };
 
