@@ -1,41 +1,21 @@
-@layer view-transitions {
-	@keyframes slide-in-from-left {
-		from {
-			translate: -100vw 0;
-		}
+@keyframes slide-in-from-left {
+	from {
+		translate: -100vw 0;
 	}
-	@keyframes slide-in-from-right {
-		from {
-			translate: 100vw 0;
-		}
+}
+@keyframes slide-in-from-right {
+	from {
+		translate: 100vw 0;
 	}
-	@keyframes slide-out-to-left {
-		to {
-			translate: -100vw 0;
-		}
+}
+@keyframes slide-out-to-left {
+	to {
+		translate: -100vw 0;
 	}
-	@keyframes slide-out-to-right {
-		to {
-			translate: 100vw 0;
-		}
-	}
-
-	html:active-view-transition(forwards) {
-		&::view-transition-old(root) {
-			animation-name: slide-out-to-left;
-		}
-		&::view-transition-new(root) {
-			animation-name: slide-in-from-right;
-		}
-	}
-
-	html:active-view-transition(backwards) {
-		&::view-transition-old(root) {
-			animation-name: slide-out-to-right;
-		}
-		&::view-transition-new(root) {
-			animation-name: slide-in-from-left;
-		}
+}
+@keyframes slide-out-to-right {
+	to {
+		translate: 100vw 0;
 	}
 }
 

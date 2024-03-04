@@ -4,11 +4,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Pagination: SPA</title>
+	<title>Pagination: SPA + Types</title>
 	<link rel="stylesheet" href="../shared/styles.css">
 	<script src="scripts.js" type="module"></script>
 	<style>
-		html[data-transition="forwards"] {
+		html:active-view-transition(forwards) {
 			&::view-transition-old(root) {
 				animation-name: slide-out-to-left;
 			}
@@ -17,7 +17,7 @@
 			}
 		}
 
-		html[data-transition="backwards"] {
+		html:active-view-transition(backwards) {
 			&::view-transition-old(root) {
 				animation-name: slide-out-to-right;
 			}
