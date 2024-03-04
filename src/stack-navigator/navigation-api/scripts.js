@@ -1,6 +1,6 @@
 // Path where this app is deployed. Because we don’t deploy at the root of the domain
 // we need to keep track of this and adjust any URL matching using this value.
-const basePath = '/stack-navigator/mpa-with-navigation-api';
+const basePath = '/stack-navigator/navigation-api';
 
 // Keep track of the last fully completed NavigationEntry as `lastSuccessfulEntry`
 // We’re gonna need this because we can’t entirely rely on currentEntry

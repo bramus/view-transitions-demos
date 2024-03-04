@@ -1,3 +1,9 @@
+[[redirects]]
+  from = "/stack-navigator/mpa-with-navigation-api/*"
+  to = "/stack-navigator/navigation-api/:splat"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
