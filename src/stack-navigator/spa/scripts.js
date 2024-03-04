@@ -28,7 +28,7 @@ const transitionToView = async (viewId, transitionClass = 'none') => {
 		}
 }
 
-document.querySelectorAll("ul.tweets a").forEach(($a) => {
+document.querySelectorAll("ul.messages a").forEach(($a) => {
 	$a.addEventListener("click", (e) => {
 		e.preventDefault();
 
