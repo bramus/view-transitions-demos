@@ -8,7 +8,7 @@
   for = "/*"
   [headers.values]
     X-XSS-Protection = "1; mode=block"
-    Referrer-Policy = "no-referrer"
+    Referrer-Policy = "same-origin"
     X-Content-Type-Options = "nosniff"
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
     Access-Control-Allow-Origin = "*"
