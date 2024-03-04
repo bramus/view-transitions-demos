@@ -18,7 +18,7 @@ navigation.lastSuccessfulEntry = navigation?.currentEntry;
 // from detail back to index.
 //
 // UX wise you didn’t though: the visitor never saw the detail page,
-// so they perceive it as going form index to index.
+// so they perceive it as going from index to index.
 //
 // Same should happen to the View Transition: transition between index and
 // index, not between detail and index.
