@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"description": "View Transitions",
 	"scripts": {
-		"start": "http-server src -p 3000 -d false --no-dotfiles -c-1",
+		"start": "netlify dev -d src",
 		"lint": "prettier --check '{src,test,cli}/**/*.{ts,tsx,js,jsx,html,css}'",
 		"format": "prettier --write '{src,test,cli}/**/*.{ts,tsx,js,jsx,html,css}'",
 		"test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +19,7 @@
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"http-server": "^14.1",
+		"netlify-cli": "^17.17.2",
 		"prettier": "^3.2.5"
 	}
 }
