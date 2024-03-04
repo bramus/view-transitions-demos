@@ -1,0 +1,115 @@
+@layer view-transitions {
+	@keyframes slide-in-from-left {
+		from {
+			translate: -100vw 0;
+		}
+	}
+	@keyframes slide-in-from-right {
+		from {
+			translate: 100vw 0;
+		}
+	}
+	@keyframes slide-out-to-left {
+		to {
+			translate: -100vw 0;
+		}
+	}
+	@keyframes slide-out-to-right {
+		to {
+			translate: 100vw 0;
+		}
+	}
+
+	html:active-view-transition(forwards) {
+		&::view-transition-old(root) {
+			animation-name: slide-out-to-left;
+		}
+		&::view-transition-new(root) {
+			animation-name: slide-in-from-right;
+		}
+	}
+
+	html:active-view-transition(backwards) {
+		&::view-transition-old(root) {
+			animation-name: slide-out-to-right;
+		}
+		&::view-transition-new(root) {
+			animation-name: slide-in-from-left;
+		}
+	}
+}
+
+@layer pagination {
+	.pagination {
+		list-style: none;
+		margin: 0 auto;
+		padding: 0;
+
+		display: flex;
+		gap: 0.5em;
+		flex-wrap: nowrap;
+		width: fit-content;
+	}
+
+	.pagination li {
+		text-decoration: none;
+		padding: 0;
+		text-align: center;
+	}
+
+	.pagination li > * {
+		--size: 2em;
+		display: inline-block;
+		width: var(--size);
+		line-height: var(--size);
+		aspect-ratio: 1;
+		border: 1px solid currentcolor;
+	}
+
+	.pagination li a {
+		color: blue;
+		text-decoration: none;
+	}
+	.pagination li a:hover,
+	.pagination li a:focus {
+		background: #0000FF22;
+	}
+
+	.pagination li[data-pagination-current] a {
+		color: #fff;
+		background: blue;
+		border-color: blue;
+	}
+
+	.pagination li[data-pagination-current] a:hover,
+	.pagination li[data-pagination-current] a:focus {
+		color: blue;
+		background: #0000FF22;
+	}
+
+	.pagination li[data-pagination-ellipsis],
+	.pagination li[data-pagination-disabled] {
+		color: #ccc;
+	}
+
+	.pagination li[data-pagination-ellipsis] > *,
+	.pagination li[data-pagination-disabled] > *,
+	.pagination li[data-pagination-first] > *,
+	.pagination li[data-pagination-prev] > *,
+	.pagination li[data-pagination-next] > *,
+	.pagination li[data-pagination-last] > * {
+		border-color: transparent;
+	}
+}
+
+/* General Styles */
+html, body {
+	height: 100%;
+	width: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+	display: grid;
+	place-items: center;
+}
