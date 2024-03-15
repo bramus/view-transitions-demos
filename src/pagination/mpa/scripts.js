@@ -7,8 +7,8 @@ window.addEventListener("pageswap", async (e) => {
 
 		// @TODO: If destination does not start with basePath, abort the VT
 
-		const transitionClass = determineTransitionClass(e.activation.from, e.activation.entry);
-		e.viewTransition.class = transitionClass;
+		const transitionType = determineTransitionType(e.activation.from, e.activation.entry);
+		e.viewTransition.type = [transitionType];
 	}
 });
 
@@ -16,7 +16,7 @@ window.addEventListener("pageswap", async (e) => {
 // Determine the View Transition class to use based on the old and new navigation entries
 // Also take the navigateEvent into account to detect UA back/forward navigations
 // @TODO: Check for dead code paths now that reload is triggered manually
-const determineTransitionClass = (oldNavigationEntry, newNavigationEntry) => {
+const determineTransitionType = (oldNavigationEntry, newNavigationEntry) => {
 	const currentURL = new URL(oldNavigationEntry.url);
 	const destinationURL = new URL(newNavigationEntry.url);
 
