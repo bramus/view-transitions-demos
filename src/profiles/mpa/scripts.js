@@ -37,14 +37,14 @@ window.addEventListener('pageswap', async (e) => {
 		}
 
 		// Restore orig VT names after snapshots have been taken
-		// // (This to deal with BFCache)
-		// await e.viewTransition.ready;
-		// document.querySelector(`#${profile} span`).style.viewTransitionName = '';
-		// document.querySelector(`#${profile} img`).style.viewTransitionName = '';
-		// if (profilePagePattern.test(window.location.href)) {
-		// 	document.querySelector(`main h1`).style.viewTransitionName = 'profile-name';
-		// 	document.querySelector(`main img`).style.viewTransitionName = 'profile-avatar';
-		// }
+		// (This to deal with BFCache)
+		await e.viewTransition.finished;
+		document.querySelector(`#${profile} span`).style.viewTransitionName = 'z';
+		document.querySelector(`#${profile} img`).style.viewTransitionName = 'w';
+		if (profilePagePattern.test(window.location.href)) {
+			document.querySelector(`main h1`).style.viewTransitionName = 'profile-name';
+			document.querySelector(`main img`).style.viewTransitionName = 'profile-avatar';
+		}
 	}
 });
 
