@@ -3,7 +3,7 @@
 const basePath = '/profiles/mpa';
 
 const homePagePattern = new URLPattern(`${basePath}/`, window.origin);
-const profilePagePattern = new URLPattern(`${basePath}/:profile/`, window.origin);
+const profilePagePattern = new URLPattern(`${basePath}/:profile`, window.origin);
 
 // When going to a detail page, set `profile-name` and `profile-avatar` vt-names
 // on the elements that link to that detail page
