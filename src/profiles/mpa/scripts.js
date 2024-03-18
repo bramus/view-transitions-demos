@@ -51,13 +51,16 @@ window.addEventListener('pageswap', async (e) => {
 // When going from a detail page to the homepage, set `profile-name` and `profile-avatar` vt-names
 // on the list item for the profile that was viewed on the detail page.
 window.addEventListener('pagereveal', async (e) => {
+
+	if (!navigation.activation.from) return;
+
 	if (e.viewTransition) {
-		const fromURL = new URL(navigation.activation.from?.url);
-		const currentURL = new URL(navigation.currentEntry.url);
+		const fromURL = new URL(navigation.activation.from.url);
+		const currentURL = new URL(navigation.activation.entry.url);
 
 		// Only transition to/from same basePath
 		// ~> SKIP!
-		if (!fromURL || !fromURL.pathname.startsWith(basePath)) {
+		if (!fromURL.pathname.startsWith(basePath)) {
 			e.viewTransition.skipTransition();
 		}
 
