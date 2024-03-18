@@ -12,6 +12,8 @@ window.addEventListener("pageswap", async (e) => {
 	}
 });
 
+// @TODO: Recalc types on pagereveal
+
 
 // Determine the View Transition class to use based on the old and new navigation entries
 // Also take the navigateEvent into account to detect UA back/forward navigations

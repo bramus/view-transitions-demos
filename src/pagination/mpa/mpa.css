@@ -1,3 +1,13 @@
 @view-transition {
 	navigation: auto;
 }
+
+:root {
+	view-transition-name: none;
+}
+article {
+	view-transition-name: content;
+}
+.pagination {
+	view-transition-name: pagination;
+}

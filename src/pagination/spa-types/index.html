@@ -5,23 +5,36 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Pagination: SPA + Types</title>
-	<link rel="stylesheet" href="../shared/styles.css">
-	<script src="scripts.js" type="module"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Flow+Block&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/pagination/shared/styles.css">
+	<script src="/pagination/spa-types/scripts.js" type="module"></script>
 	<style>
+		:root {
+			view-transition-name: none;
+		}
+		article {
+			view-transition-name: content;
+		}
+		.pagination {
+			view-transition-name: pagination;
+		}
+
 		html:active-view-transition(forwards) {
-			&::view-transition-old(root) {
+			&::view-transition-old(content) {
 				animation-name: slide-out-to-left;
 			}
-			&::view-transition-new(root) {
+			&::view-transition-new(content) {
 				animation-name: slide-in-from-right;
 			}
 		}
 
 		html:active-view-transition(backwards) {
-			&::view-transition-old(root) {
+			&::view-transition-old(content) {
 				animation-name: slide-out-to-right;
 			}
-			&::view-transition-new(root) {
+			&::view-transition-new(content) {
 				animation-name: slide-in-from-left;
 			}
 		}
@@ -29,7 +42,13 @@
 </head>
 
 <body>
-	<div id="app"></div>
+	<main>
+		<article>
+			<h1>I am the first page.</h1>
+			<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non cupiditate nemo voluptatum et nisi eius culpa repellendus suscipit placeat, fugit, veniam, molestias accusamus est ex blanditiis ullam dignissimos excepturi quod.</p>
+		</article>
+		<div id="app"></div>
+	</main>
 </body>
 
 </html>

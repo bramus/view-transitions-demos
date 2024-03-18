@@ -19,6 +19,10 @@
 	}
 }
 
+::view-transition-group(*) {
+	animation-duration: 1s;
+}
+
 @layer pagination {
 	.pagination {
 		list-style: none;
@@ -79,6 +83,18 @@
 	.pagination li[data-pagination-next] > *,
 	.pagination li[data-pagination-last] > * {
 		border-color: transparent;
+	}
+}
+
+@layer content {
+	main {
+		max-width: 20em;
+		margin: 0 auto;
+	}
+	article {
+		font-family: "Flow Block", system-ui;
+		font-weight: 400;
+		font-style: normal;
 	}
 }
 
