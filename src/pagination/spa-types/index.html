@@ -21,7 +21,7 @@
 			view-transition-name: pagination;
 		}
 
-		html:active-view-transition(forwards) {
+		html:active-view-transition-type(forwards) {
 			&::view-transition-old(content) {
 				animation-name: slide-out-to-left;
 			}
@@ -30,7 +30,7 @@
 			}
 		}
 
-		html:active-view-transition(backwards) {
+		html:active-view-transition-type(backwards) {
 			&::view-transition-old(content) {
 				animation-name: slide-out-to-right;
 			}
