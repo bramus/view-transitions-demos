@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Boxes</title>
+	<link rel="stylesheet" href="/cards/shared/styles.css">
+	<script src="/cards/spa/scripts.js" type="module"></script>
+</head>
+<body>
+	<button class="add-btn">
+		<span class="sr-only">Add</span>
+	</button>
+
+	<template id="card">
+		<li class="card">
+		<button class="delete-btn">
+		  <span class="sr-only">Delete</span>
+		</button>
+	  </li>
+	</template>
+
+	<ul class="cards">
+	  <li class="card" style="view-transition-name: card-1; background-color: tan;">
+		<button class="delete-btn">
+		  <span class="sr-only">Delete</span>
+		</button>
+	  </li>
+	  <li class="card" style="view-transition-name: card-2; background-color: khaki;">
+		<button class="delete-btn">
+		  <span class="sr-only">Delete</span>
+		</button>
+	  </li>
+	  <li class="card" style="view-transition-name: card-3; background-color: thistle;">
+		<button class="delete-btn">
+		  <span class="sr-only">Delete</span>
+		</button>
+	  </li>
+	  <li class="card" style="view-transition-name: card-4; background-color: wheat;">
+		<button class="delete-btn">
+		  <span class="sr-only">Delete</span>
+		</button>
+	  </li>
+	</ul>
+
+	<div class="warning">
+		<p>You browser does not support <code>view-transtion-class: &lt;custom-ident&gt;+</code>. As a result, the existing cards will not bounce upon inserting/deleting a card.</p>
+	</div>
+
+	<footer>
+		<p>Icons from <a href="https://www.iconfinder.com/iconsets/ionicons-outline-vol-1">Ionicons Outline Vol.1</a>, licensed under the <a href="https://opensource.org/license/MIT">MIT license</a>.</p>
+	</footer>
+</body>
+</html>
