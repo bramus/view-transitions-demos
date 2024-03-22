@@ -40,7 +40,7 @@ document.querySelector('#app').addEventListener('click', async e => {
 						new URL(window.location.href).pathname
 					));
 				},
-				type: [direction],
+				types: [direction],
 			});
 
 			// Update currentPageIndex to new value for next calculation
