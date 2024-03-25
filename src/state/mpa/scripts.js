@@ -6,6 +6,13 @@ window.addEventListener('pageswap', async (e) => {
 
 window.addEventListener('pagereveal', async (e) => {
 	if (e.viewTransition) {
-		document.querySelector('video').currentTime = sessionStorage.getItem("currentTime");
+		if (sessionStorage.getItem("currentTime")) {
+			try {
+				document.querySelector('video').currentTime = sessionStorage.getItem("currentTime");
+				document.querySelector('video').play();
+			} catch {
+				document.querySelector('video').currentTime = 0;
+			}
+		}
 	}
 });

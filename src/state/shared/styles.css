@@ -19,12 +19,12 @@
 
 video {
 	display: block;
-	width: 20vw;
+	width: 40vw;
 	height: auto;
 	aspect-ratio: 16 / 9;
 
 	&.big {
-		width: 60vw;
+		width: 80vw;
 	}
 }
 
