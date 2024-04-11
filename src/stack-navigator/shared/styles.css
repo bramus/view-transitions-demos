@@ -56,15 +56,15 @@ body {
 	animation-duration: 0.7s;
 }
 
-/* ::view-transition-old(page) {
-	outline: 10px solid hotpink;
-	outline-offset: -10px;
-}
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-group(page) {
+		animation-duration: 0s;
+	}
 
-::view-transition-new(page) {
-	outline: 10px solid lime;
-	outline-offset: -10px;
-} */
+	.warning {
+		display: block;
+	}
+}
 
 :root[data-transition="reload"] {
 	&::view-transition-old(page) {
@@ -133,6 +133,9 @@ body {
 			background: white;
 			font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
 				"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+		a {
+			user-select: none;
 		}
 	}
 
@@ -237,5 +240,36 @@ body {
 				}
 			}
 		}
+	}
+}
+
+@layer warning {
+	.warning {
+		box-sizing: border-box;
+		padding: 1em;
+		margin: 1em 0;
+		border: 1px solid #ccc;
+		background: rgba(255 255 205 / 0.8);
+		display: none;
+	}
+
+	.warning > :first-child {
+		margin-top: 0;
+	}
+
+	.warning > :last-child {
+		margin-bottom: 0;
+	}
+
+	.warning a {
+		color: blue;
+	}
+	.warning--info {
+		border: 1px solid #123456;
+		background: rgb(205 230 255 / 0.8);
+	}
+	.warning--alarm {
+		border: 1px solid red;
+		background: #ff000010;
 	}
 }
