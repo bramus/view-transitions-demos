@@ -1,0 +1,85 @@
+@layer reset, layout, view-transitions;
+
+@layer view-transitions {
+	@view-transition {
+		navigation: auto;
+	}
+
+	::view-transition-image-pair(root) {
+		isolation: auto;
+	}
+
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+		mix-blend-mode: normal;
+		display: block;
+	}
+}
+
+@layer layout {
+	@layer general {
+		html {
+			background: white;
+			user-select: none;
+		}
+
+		html,
+		body {
+			height: 100%;
+		}
+
+		body {
+			font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+				"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+			text-align: center;
+			display: grid;
+			place-content: center;
+		}
+		a {
+			color: blue;
+		}
+	}
+	@layer startingpoint {
+		#startingPointMarker {
+			position: fixed;
+			width: 1em;
+			height: 1em;
+			border-radius: 50%;
+			background: rgb(0 0 0 / 0.35);
+			border: 2px solid white;
+			transform: translate3d(-50%, -50%, 0);
+			pointer-events: none;
+
+			display: none;
+			&[style] {
+				display: block;
+			}
+		}
+	}
+}
+
+@layer reset {
+	* {
+		box-sizing: border-box;
+	}
+
+	html, body {
+		margin: 0;
+		padding: 0;
+	}
+
+	ul[class] {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	img {
+		display: inline-block;
+	}
+
+	h1 {
+		margin-bottom: 0.5em;
+	}
+}
