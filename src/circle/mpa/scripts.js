@@ -2,7 +2,13 @@
 const randomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const randomColor = () => randomInteger(0, 16777215).toString(16);
 
-// Store the last click event
+// Determine some random values for further use
+// These get cached to make sure the values remain the same when traversing history
+const randomX = randomInteger(0, window.innerWidth);
+const randomY = randomInteger(0, window.innerHeight);
+
+// Store the last click event on every click
+// Move the startingPointMarker to indicate it was stored
 let lastClick;
 document.addEventListener('click', (event) => {
 	if (event.target.tagName.toLowerCase() === 'a') return;
@@ -21,22 +27,27 @@ window.addEventListener('pageswap', (event) => {
 	}
 });
 
-//
+// Set up a custom View Transition on pagereveal
 window.addEventListener('pagereveal', async event => {
 	if (!event.viewTransition) return;
 
-	// Set random BG color
-	document.documentElement.style.backgroundColor = `#${randomColor()}`;
+	// Set random BG color and take over click position from storage upon navigation push
+	if (navigation.activation.navigationType !== 'traverse') {
+		document.documentElement.style.backgroundColor = `#${randomColor()}`;
+		x = sessionStorage.getItem('lastClickX') ?? randomX;
+		y = sessionStorage.getItem('lastClickY') ?? randomY;
+	}
 
-	// Get the click position, or fallback to a random position in the viewport
-	const x = sessionStorage.getItem('lastClickX') ?? randomInteger(0, window.innerWidth);
-	const y = sessionStorage.getItem('lastClickY') ?? randomInteger(0, window.innerHeight);
+	// When traversing the history, take over the locally stored lastClick
+	// The BG color already got changed
+	else {
+		x = lastClick?.clientX ?? randomX;
+		y = lastClick?.clientY ?? randomY;
+	}
 
 	// Make sure dot is at correct position
-	if (sessionStorage.getItem('lastClickX')) {
-		startingPointMarker.style.left = `${x}px`;
-		startingPointMarker.style.top = `${y}px`;
-	}
+	startingPointMarker.style.left = `${x}px`;
+	startingPointMarker.style.top = `${y}px`;
 
 	// Get the distance to the farthest corner
 	const endRadius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
