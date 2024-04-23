@@ -30,17 +30,16 @@ window.addEventListener('pageswap', async (e) => {
 		document.querySelector(`#${profile} img`).style.viewTransitionName = 'profile-avatar';
 
 		// Remove VT-names from currently shown ones when already at a detail page
-		// @TODO: Figure out why I had to set to x and y here, instead of just ''
 		if (profilePagePattern.test(window.location.href)) {
-			document.querySelector(`main h1`).style.viewTransitionName = 'x';
-			document.querySelector(`main img`).style.viewTransitionName = 'y';
+			document.querySelector(`main h1`).style.viewTransitionName = '';
+			document.querySelector(`main img`).style.viewTransitionName = '';
 		}
 
 		// Restore orig VT names after snapshots have been taken
 		// (This to deal with BFCache)
 		await e.viewTransition.finished;
-		document.querySelector(`#${profile} span`).style.viewTransitionName = 'z';
-		document.querySelector(`#${profile} img`).style.viewTransitionName = 'w';
+		document.querySelector(`#${profile} span`).style.viewTransitionName = '';
+		document.querySelector(`#${profile} img`).style.viewTransitionName = '';
 		if (profilePagePattern.test(window.location.href)) {
 			document.querySelector(`main h1`).style.viewTransitionName = 'profile-name';
 			document.querySelector(`main img`).style.viewTransitionName = 'profile-avatar';
