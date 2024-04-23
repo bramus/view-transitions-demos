@@ -2,6 +2,17 @@
 // we need to keep track of this and adjust any URL matching using this value.
 const basePath = '/stack-navigator/navigation-api';
 
+// Make sure browser has support
+if (!window.navigation || !window.performance) {
+	document.addEventListener("DOMContentLoaded", (e) => {
+		document.querySelector('.warning[data-reason="navigation-api"]').style.display = "block";
+	});
+
+	// Throwing here, to prevent the rest of the code from getting executed
+	// If only JS (in the browser) had something like process.exit().
+	throw new Error('Browser is lacking support …');
+}
+
 // Keep track of the last fully completed NavigationEntry as `lastSuccessfulEntry`
 // We’re gonna need this because we can’t entirely rely on currentEntry
 // when intercepting. See next comment for more info.
@@ -164,7 +175,7 @@ const isUAForwardButton = (oldNavigationEntry, newNavigationEntry) => {
 
 // Do a reload View Transition when pressing UA reload
 const navigationEntry = window.performance.getEntriesByType("navigation")[0];
-if (navigationEntry.type === "reload") {
+if (navigationEntry.type === "reload" && document.startViewTransition) {
 	(async () => {
 		document.documentElement.dataset.transition = "reload";
 

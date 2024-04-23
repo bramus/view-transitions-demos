@@ -11,8 +11,8 @@
 	<div id="home" class="view">
 		<h1><a href="./">🏠</a> Home</h1>
 		<div class="col">
-			<div class="warning warning--info">
-				<p>You have <code>prefers-reduced-motion: reduce</code> enabled. As a result you won’t get a transition.</p>
+			<div class="warning warning--info" data-reason="prefers-reduced-motion">
+				<p>You have <code>prefers-reduced-motion: reduce</code> enabled. As a result you won’t get to see a transition.</p>
 			</div>
 			<ul class="messages">
 				<li>
@@ -57,8 +57,8 @@
 	<div id="detail" class="view" hidden>
 		<h1><a href="#back" class="back">&larr;</a> Message</h1>
 		<div class="col">
-			<div class="warning warning--info">
-				<p>You have <code>prefers-reduced-motion: reduce</code> enabled. As a result you won’t get a transition.</p>
+			<div class="warning warning--info" data-reason="prefers-reduced-motion">
+				<p>You have <code>prefers-reduced-motion: reduce</code> enabled. As a result you won’t get to see a transition.</p>
 			</div>
 			<div class="message">
 				<header>
@@ -95,9 +95,6 @@
 	<div id="detail2" class="view" hidden>
 		<h1><a href="#back" class="back">&larr;</a> Message</h1>
 		<div class="col">
-			<div class="warning warning--info">
-				<p>You have <code>prefers-reduced-motion: reduce</code> enabled. As a result you won’t get a transition.</p>
-			</div>
 			<div class="message">
 				<header>
 					<img src="../shared/avatar.jpg" alt="Avatar of Bramus" width="100" height="100">
@@ -117,6 +114,14 @@
 					<li><b>20</b> likes</li>
 				</ul>
 			</div>
+		</div>
+	</div>
+	<div class="warnings">
+		<div class="warning warning--info" data-reason="prefers-reduced-motion">
+			<p>ℹ️ You have <code>prefers-reduced-motion: reduce</code> enabled. As a result you won’t get to see a transition.</p>
+		</div>
+		<div class="warning" data-reason="same-document-view-transitions">
+			<p>⚠️ For this demo to work your browser needs to support Same-Document View Transitions, which is not the case. As a result you won’t get to see a transition.</p>
 		</div>
 	</div>
 </body>

@@ -56,16 +56,6 @@ body {
 	animation-duration: 0.7s;
 }
 
-@media (prefers-reduced-motion: reduce) {
-	::view-transition-group(page) {
-		animation-duration: 0s;
-	}
-
-	.warning {
-		display: block;
-	}
-}
-
 :root[data-transition="reload"] {
 	&::view-transition-old(page) {
 		display: none;
@@ -96,6 +86,39 @@ body {
 		animation-name: grow;
 		transform-origin: 100% 50%;
 	}
+}
+
+/* Warnings and Preferences */
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-group(page) {
+		animation-duration: 0s;
+	}
+
+	.warning[data-reason="prefers-reduced-motion"] {
+		display: block;
+	}
+}
+
+.warning[data-reason="cross-document-view-transitions"] {
+	display: block; /* @TODO: Conditionally show this, once there is something like at-rule() in Chrome */
+}
+
+.warning[data-reason="navigation-api"] {
+	/* JS will show this warning when needed */
+}
+
+@supports not (view-transition-name: works) {
+	.warning[data-reason="same-document-view-transitions"] {
+		display: block;
+	}
+}
+
+.warnings {
+	position: fixed;
+	bottom: 1em;
+	left: 1em;
+	right: 1em;
+	view-transition-name: warning; /* Don’t transition this with the rest of the stuff */
 }
 
 @layer reset {
