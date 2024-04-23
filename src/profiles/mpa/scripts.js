@@ -31,15 +31,15 @@ window.addEventListener('pageswap', async (e) => {
 
 		// Remove VT-names from currently shown ones when already at a detail page
 		if (profilePagePattern.test(window.location.href)) {
-			document.querySelector(`main h1`).style.viewTransitionName = '';
-			document.querySelector(`main img`).style.viewTransitionName = '';
+			document.querySelector(`main h1`).style.viewTransitionName = 'none';
+			document.querySelector(`main img`).style.viewTransitionName = 'none';
 		}
 
 		// Restore orig VT names after snapshots have been taken
 		// (This to deal with BFCache)
 		await e.viewTransition.finished;
-		document.querySelector(`#${profile} span`).style.viewTransitionName = '';
-		document.querySelector(`#${profile} img`).style.viewTransitionName = '';
+		document.querySelector(`#${profile} span`).style.viewTransitionName = 'none';
+		document.querySelector(`#${profile} img`).style.viewTransitionName = 'none';
 		if (profilePagePattern.test(window.location.href)) {
 			document.querySelector(`main h1`).style.viewTransitionName = 'profile-name';
 			document.querySelector(`main img`).style.viewTransitionName = 'profile-avatar';
