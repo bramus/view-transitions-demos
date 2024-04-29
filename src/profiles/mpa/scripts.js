@@ -2,48 +2,62 @@
 // we need to keep track of this and adjust any URL matching using this value.
 const basePath = '/profiles/mpa';
 
-const homePagePattern = new URLPattern(`${basePath}/`, window.origin);
+const homePagePattern = new URLPattern(`${basePath}(/)*`, window.origin);
+const isHomePage = (url) => {
+	return homePagePattern.exec(url);
+}
+
 const profilePagePattern = new URLPattern(`${basePath}/:profile`, window.origin);
+const isProfilePage = (url) => {
+	return profilePagePattern.exec(url);
+}
+
+const extractProfileNameFromUrl = (url) => {
+	const match = profilePagePattern.exec(url);
+	return match?.pathname.groups.profile;
+}
 
 // When going to a detail page, set `profile-name` and `profile-avatar` vt-names
 // on the elements that link to that detail page
 window.addEventListener('pageswap', async (e) => {
 	if (e.viewTransition) {
-		const url = new URL(e.activation.entry.url);
+		const currentUrl = e.activation.from?.url ? new URL(e.activation.from.url) : null;
+		const targetUrl = new URL(e.activation.entry.url);
 
 		// Only transition to same basePath
 		// ~> SKIP!
-		if (!url.pathname.startsWith(basePath)) {
+		if (!targetUrl.pathname.startsWith(basePath)) {
 			e.viewTransition.skipTransition();
 		}
 
-		// Extract name from URL
-		const match = profilePagePattern.exec(url);
-		const profile = match?.pathname.groups.profile;
+		// Going from profile page to homepage
+		// ~> The big img and title are the ones!
+		if (isProfilePage(currentUrl) && isHomePage(targetUrl)) {
+			document.querySelector(`#detail main h1`).style.viewTransitionName = 'name';
+            document.querySelector(`#detail main img`).style.viewTransitionName = 'avatar';
 
-		// No name extract = not going to a detail page
-		// ~> Don’t tweak VT
-		if (!profile) return;
-
-		// Set VT-names on clicked name
-		document.querySelector(`#${profile} span`).style.viewTransitionName = 'profile-name';
-		document.querySelector(`#${profile} img`).style.viewTransitionName = 'profile-avatar';
-
-		// Remove VT-names from currently shown ones when already at a detail page
-		if (profilePagePattern.test(window.location.href)) {
-			document.querySelector(`main h1`).style.viewTransitionName = 'none';
-			document.querySelector(`main img`).style.viewTransitionName = 'none';
+            // Remove view-transition-names after snapshots have been taken
+            // (this to deal with BFCache)
+            await e.viewTransition.finished;
+            document.querySelector(`#detail main h1`).style.viewTransitionName = 'none';
+            document.querySelector(`#detail main img`).style.viewTransitionName = 'none';
 		}
 
-		// Restore orig VT names after snapshots have been taken
-		// (This to deal with BFCache)
-		await e.viewTransition.finished;
-		document.querySelector(`#${profile} span`).style.viewTransitionName = 'none';
-		document.querySelector(`#${profile} img`).style.viewTransitionName = 'none';
-		if (profilePagePattern.test(window.location.href)) {
-			document.querySelector(`main h1`).style.viewTransitionName = 'profile-name';
-			document.querySelector(`main img`).style.viewTransitionName = 'profile-avatar';
-		}
+        // Going to profile page
+		// ~> The clicked items are the ones!
+        if (isProfilePage(targetUrl)) {
+            const profile = extractProfileNameFromUrl(targetUrl);
+
+            // Set view-transition-name values on the clicked row
+            document.querySelector(`#${profile} span`).style.viewTransitionName = 'name';
+            document.querySelector(`#${profile} img`).style.viewTransitionName = 'avatar';
+
+            // Remove view-transition-names after snapshots have been taken
+            // (this to deal with BFCache)
+            await e.viewTransition.finished;
+            document.querySelector(`#${profile} span`).style.viewTransitionName = 'none';
+            document.querySelector(`#${profile} img`).style.viewTransitionName = 'none';
+        }
 	}
 });
 
@@ -54,28 +68,42 @@ window.addEventListener('pagereveal', async (e) => {
 	if (!navigation.activation.from) return;
 
 	if (e.viewTransition) {
-		const fromURL = new URL(navigation.activation.from.url);
-		const currentURL = new URL(navigation.activation.entry.url);
+		const fromUrl = new URL(navigation.activation.from.url);
+		const currentUrl = new URL(navigation.activation.entry.url);
 
 		// Only transition to/from same basePath
 		// ~> SKIP!
-		if (!fromURL.pathname.startsWith(basePath)) {
+		if (!fromUrl.pathname.startsWith(basePath)) {
 			e.viewTransition.skipTransition();
 		}
 
 		// Went from profile page to homepage
 		// ~> Set VT names on the relevant list item
-		if (profilePagePattern.test(fromURL) && homePagePattern.test(currentURL)) {
-			const match = profilePagePattern.exec(fromURL);
-			const profile = match?.pathname.groups.profile;
+		if (isProfilePage(fromUrl) && isHomePage(currentUrl)) {
+			const profile = extractProfileNameFromUrl(fromUrl);
 
-			document.querySelector(`#${profile} span`).style.viewTransitionName = 'profile-name';
-			document.querySelector(`#${profile} img`).style.viewTransitionName = 'profile-avatar';
+            // Set view-transition-name values on the elements in the list
+            document.querySelector(`#${profile} span`).style.viewTransitionName = 'name';
+            document.querySelector(`#${profile} img`).style.viewTransitionName = 'avatar';
 
-			// Clean up after snapshots have been taken
+			// Remove names after snapshots have been taken
+			// so that we’re ready for the next navigation
 			await e.viewTransition.ready;
-			document.querySelector(`#${profile} span`).style.viewTransitionName = '';
-			document.querySelector(`#${profile} img`).style.viewTransitionName = '';
+			document.querySelector(`#${profile} span`).style.viewTransitionName = 'none';
+			document.querySelector(`#${profile} img`).style.viewTransitionName = 'none';
+		}
+
+		// Went to profile page
+		// ~> Set VT names on the main title and image
+		if (isProfilePage(currentUrl)) {
+            document.querySelector(`#detail main h1`).style.viewTransitionName = 'name';
+            document.querySelector(`#detail main img`).style.viewTransitionName = 'avatar';
+
+			// Remove names after snapshots have been taken
+			// so that we’re ready for the next navigation
+			await e.viewTransition.ready;
+			document.querySelector(`#detail main h1`).style.viewTransitionName = 'none';
+			document.querySelector(`#detail main img`).style.viewTransitionName = 'none';
 		}
 	}
 });

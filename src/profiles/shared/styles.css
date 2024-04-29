@@ -5,14 +5,14 @@
 		navigation: auto;
 	}
 
-	#detail main {
+	/* #detail main {
 		img {
 			view-transition-name: profile-avatar;
 		}
 		h1 {
 			view-transition-name: profile-name;
 		}
-	}
+	} */
 }
 
 @layer pages {
