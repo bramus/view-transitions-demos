@@ -8,7 +8,7 @@ window.addEventListener("pageswap", async (e) => {
 		// @TODO: If destination does not start with basePath, abort the VT
 
 		const transitionType = determineTransitionType(e.activation.from, e.activation.entry);
-		// console.log(`pageSwap: ${transitionType}`);
+		console.log(`pageSwap: ${transitionType}`);
 		e.viewTransition.types = [transitionType];
 	}
 });
@@ -19,7 +19,7 @@ window.addEventListener("pagereveal", async (e) => {
 		// @TODO: If destination does not start with basePath, abort the VT
 
 		const transitionType = determineTransitionType(navigation.activation.from, navigation.activation.entry);
-		// console.log(`pageReveal: ${transitionType}`);
+		console.log(`pageReveal: ${transitionType}`);
 		e.viewTransition.types = [transitionType];
 	}
 });
