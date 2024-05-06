@@ -38,8 +38,8 @@ const determineTransitionType = (oldNavigationEntry, newNavigationEntry) => {
 	if (currentPathname === destinationPathname) {
 		return "reload";
 	} else {
-		let currentPageIndex = currentPathname.replace('/index', '').replace('.html', '');
-		let destinationPageIndex = destinationPathname.replace('/index', '').replace('.html', '');
+		let currentPageIndex = currentPathname.replace('/index', '').replace('/', '').replace('.html', '');
+		let destinationPageIndex = destinationPathname.replace('/index', '').replace('/', '').replace('.html', '');
 
 		// The first page has no number in its path
 		currentPageIndex = currentPageIndex ? parseInt(currentPageIndex) : 1;
