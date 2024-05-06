@@ -9,7 +9,7 @@ window.addEventListener("pageswap", async (e) => {
 
 		const transitionType = determineTransitionType(e.activation.from, e.activation.entry);
 		console.log(`pageSwap: ${transitionType}`);
-		e.viewTransition.types = [transitionType];
+		e.viewTransition.types.add(...[transitionType]);
 	}
 });
 
@@ -20,7 +20,7 @@ window.addEventListener("pagereveal", async (e) => {
 
 		const transitionType = determineTransitionType(navigation.activation.from, navigation.activation.entry);
 		console.log(`pageReveal: ${transitionType}`);
-		e.viewTransition.types = [transitionType];
+		e.viewTransition.types.add(...[transitionType]);
 	}
 });
 
