@@ -11,3 +11,21 @@ article {
 .pagination {
 	view-transition-name: pagination;
 }
+
+html:active-view-transition-type(forwards) {
+	&::view-transition-old(content) {
+		animation-name: slide-out-to-left;
+	}
+	&::view-transition-new(content) {
+		animation-name: slide-in-from-right;
+	}
+}
+
+html:active-view-transition-type(backwards) {
+	&::view-transition-old(content) {
+		animation-name: slide-out-to-right;
+	}
+	&::view-transition-new(content) {
+		animation-name: slide-in-from-left;
+	}
+}
