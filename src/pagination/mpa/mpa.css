@@ -2,14 +2,16 @@
 	navigation: auto;
 }
 
-:root {
-	view-transition-name: none;
-}
-article {
-	view-transition-name: content;
-}
-.pagination {
-	view-transition-name: pagination;
+html:active-view-transition-type(forwards, backwards) {
+	:root {
+		view-transition-name: none;
+	}
+	article {
+		view-transition-name: content;
+	}
+	.pagination {
+		view-transition-name: pagination;
+	}
 }
 
 html:active-view-transition-type(forwards) {
