@@ -31,3 +31,13 @@ html:active-view-transition-type(backwards) {
 		animation-name: slide-in-from-left;
 	}
 }
+
+html:active-view-transition-type(reload) {
+	&::view-transition-old(root) {
+		animation-name: fade-out, scale-down;
+	}
+	&::view-transition-new(root) {
+		animation-delay: 0.25s;
+		animation-name: fade-in, scale-up;
+	}
+}

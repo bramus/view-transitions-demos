@@ -18,6 +18,26 @@
 		translate: 100vw 0;
 	}
 }
+@keyframes scale-up {
+	from {
+		scale: 0;
+	}
+}
+@keyframes scale-down {
+	to {
+		scale: 0;
+	}
+}
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+}
+@keyframes fade-out {
+	to {
+		opacity: 0;
+	}
+}
 
 ::view-transition-group(*) {
 	animation-duration: 1s;
