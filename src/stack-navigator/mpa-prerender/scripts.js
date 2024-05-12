@@ -22,6 +22,10 @@ document.addEventListener('click', (e) => {
 // MPA View Transitions!
 window.addEventListener("pagereveal", async (e) => {
 
+	// Hide warning in browsers that support cross-document-view-transitions
+	// Since we can’t detect this directly, we assume that browsers that do pagereveal also do MPA VT
+	document.querySelector('[data-reason="cross-document-view-transitions"]').style.display = 'none';
+
 	// There is an automatic viewTransition, so the user comes from the same origin
 	if (e.viewTransition) {
 
