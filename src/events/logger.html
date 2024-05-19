@@ -26,7 +26,7 @@
 			$li.dataset.name = event.data.name;
 			$li.dataset.time = event.data.time;
 			$li.dataset.page = event.data.page;
-			$li.style.setProperty('--page', `#${event.data.page.replace(`?r=0.`, '')}`);
+			$li.style.setProperty('--color', event.data.color);
 			$li.dataset.sequence = $ul.children.length;
 			$ul.appendChild($li);
 
@@ -42,25 +42,25 @@
 		}
 
 		li[data-type="PageTransitionEvent"] {
-			--color: navy;
+			--type: navy;
 		}
 
 		li[data-type="NavigateEvent"] {
-			--color: blue;
+			--type: blue;
 		}
 
 		li[data-type="PointerEvent"] {
-			--color: hotpink;
+			--type: hotpink;
 		}
 
 		li[data-type="PageSwapEvent"],
 		li[data-type="PageRevealEvent"] {
-			--color: green;
+			--type: green;
 		}
 
 		li[data-type="Event"][data-name="load"],
 		li[data-type="Event"][data-name="unload"] {
-				--color: orange;
+			--type: orange;
 		}
 
 		li[data-type] {
@@ -79,12 +79,12 @@
 			display: inline-block;
 			width: 1em;
 			height: 1em;
-			background: var(--color, grey);
+			background: var(--type, grey);
 			border-radius: 50%;
 		}
 
 		li[data-type] .page {
-			background-color: var(--page, grey);
+			background-color: var(--color, grey);
 			color: white;
 			padding: 0.2em 0.3em;
 			display: inline-block;

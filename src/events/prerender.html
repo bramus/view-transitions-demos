@@ -6,9 +6,14 @@
 	<title>Events</title>
 	<script>
 		const bc = new BroadcastChannel("events_logger");
+		const page = window.location.search ? window.location.search : '?r=0.000000';
+		const color = `#${page.replace('?r=0.', '')}`;
+		document.documentElement.style.setProperty('--color', color);
+
 		const logit = (e) => {
 			const obj = {
-				page: window.location.search ? window.location.search : '?r=0.000000',
+				page,
+				color,
 				time: (+new Date()),
 				name: e.type ?? e,
 				type: e.constructor.name,
@@ -43,6 +48,13 @@
 		@view-transition {
 			navigation: auto;
 		}
+		h1 {
+			background-color: var(--color, grey);
+			color: white;
+			padding: 0.2em 0.3em;
+			display: block;
+			width: max-content;
+		}
 	</style>
 	<script type="speculationrules">
 		{
@@ -57,6 +69,7 @@
 	</script>
 </head>
 <body>
+	<h1>Events Logger</h1>
 	<a href="/events/logger" target="_blank">open logger <em>(new window)</em></a>
 	<a href="/events/prerender">navigate (with prerender)</a>
 </body>
