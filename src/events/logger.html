@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Logger</title>
+	<script type="module">
+		const bc = new BroadcastChannel("events_logger");
+		const $ul = document.querySelector('ul');
+
+		const sort = (field, backup = null) => {
+			let $children = Array.from($ul.children);
+			$children = $children.sort((a,b) => {
+				if (a.dataset[field] == b.dataset[field]) {
+					return a.dataset.sequence - b.dataset.sequence;
+				}
+				return a.dataset[field] - b.dataset[field];
+			});
+			$ul.replaceChildren(...$children);
+		}
+
+		bc.onmessage = (event) => {
+			const $li = document.createElement('li');
+			$li.innerHTML = `<span class="name">${event.data.name}</span> <span class="page">${event.data.page}</span>`;
+			$li.dataset.type = event.data.type;
+			$li.dataset.name = event.data.name;
+			$li.dataset.time = event.data.time;
+			$li.dataset.page = event.data.page;
+			$li.style.setProperty('--page', `#${event.data.page.replace(`?r=0.`, '')}`);
+			$li.dataset.sequence = $ul.children.length;
+			$ul.appendChild($li);
+
+			sort('time');
+		};
+	</script>
+	<style>
+		ul {
+			list-style: none;
+			font-family: monospace;
+			margin: 0;
+			padding: 0;
+		}
+
+		li[data-type="PageTransitionEvent"] {
+			--color: navy;
+		}
+
+		li[data-type="NavigateEvent"] {
+			--color: blue;
+		}
+
+		li[data-type="PointerEvent"] {
+			--color: hotpink;
+		}
+
+		li[data-type="PageSwapEvent"],
+		li[data-type="PageRevealEvent"] {
+			--color: green;
+		}
+
+		li[data-type="Event"][data-name="load"],
+		li[data-type="Event"][data-name="unload"] {
+				--color: orange;
+		}
+
+		li[data-type] {
+			display: flex;
+			gap: 1ch;
+			margin: 0.2em 0;
+		}
+
+		li[data-type] span {
+			display: flex;
+			gap: 1ch;
+		}
+
+		li[data-type] .name::before {
+			content: '';
+			display: inline-block;
+			width: 1em;
+			height: 1em;
+			background: var(--color, grey);
+			border-radius: 50%;
+		}
+
+		li[data-type] .page {
+			background-color: var(--page, grey);
+			color: white;
+			padding: 0.2em 0.3em;
+			display: inline-block;
+			border-radius: 0.1em;
+		}
+	</style>
+</head>
+<body>
+	<h1>Events Log</h1>
+	<ul>
+
+	</ul>
+</body>
+</html>

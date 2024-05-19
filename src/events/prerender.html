@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Events</title>
+	<script>
+		const bc = new BroadcastChannel("events_logger");
+		const logit = (e) => {
+			const obj = {
+				page: window.location.search ? window.location.search : '?r=0.000000',
+				time: (+new Date()),
+				name: e.type ?? e,
+				type: e.constructor.name,
+			};
+			bc.postMessage(obj);
+		}
+
+		window.addEventListener('pageswap', logit);
+		window.addEventListener('pagehide', logit);
+		window.addEventListener('unload', logit);
+
+		window.addEventListener('pagereveal', logit);
+		window.addEventListener('pageshow', logit);
+		window.addEventListener('load', logit);
+
+		window.addEventListener('click', logit);
+		window.addEventListener('popstate', logit);
+
+		document.addEventListener('visibilitychange', logit);
+
+		if (document.prerendering) {
+			document.addEventListener('prerenderingchange', logit);
+		}
+
+		navigation.addEventListener('navigate', logit);
+		navigation.addEventListener('currententrychange', logit);
+	</script>
+	<script type="module">
+		document.querySelector('a[href="/events/prerender"]').setAttribute('href', `/events/prerender?r=${Math.random().toFixed(6)}`)
+	</script>
+	<style>
+		@view-transition {
+			navigation: auto;
+		}
+	</style>
+	<script type="speculationrules">
+		{
+			"prerender": [{
+				"source": "document",
+				"where": {
+					"href_matches": "/*"
+				},
+				"eagerness": "moderate"
+			}]
+		}
+	</script>
+</head>
+<body>
+	<a href="/events/logger" target="_blank">open logger <em>(new window)</em></a>
+	<a href="/events/prerender">navigate (with prerender)</a>
+</body>
+</html>
