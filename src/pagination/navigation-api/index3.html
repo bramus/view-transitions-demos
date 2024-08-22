@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pagination: page 3</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Flow+Block&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/pagination/shared/styles.css">
+	<link rel="stylesheet" href="/pagination/navigation-api/styles.css">
+	<script src="/pagination/navigation-api/scripts.js"></script>
+</head>
+
+<body>
+	<main>
+		<article>
+			<h1>I am the third page.</h1>
+			<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non cupiditate nemo voluptatum et nisi eius culpa repellendus suscipit placeat, fugit, veniam, molestias accusamus est ex blanditiis ullam dignissimos excepturi quod.</p>
+		</article>
+		<ul class="pagination">
+			<li data-pagination-prev><a href="/pagination/navigation-api/index2.html" title="Go to Previous Page">&lsaquo;</a></li>
+			<li><a href="/pagination/navigation-api/index.html" title="Go to page 1">1</a></li>
+			<li><a href="/pagination/navigation-api/index2.html" title="Go to page 2">2</a></li>
+			<li data-pagination-current><a href="/pagination/navigation-api/index3.html" title="Go to page 3">3</a></li>
+			<li><a href="/pagination/navigation-api/index4.html" title="Go to page 4">4</a></li>
+			<li data-pagination-next><a href="/pagination/navigation-api/index4.html" title="Go to Next Page">&rsaquo;</a></li>
+		</ul>
+	</main>
+	<div class="warnings">
+		<div class="warning warning--info" data-reason="prefers-reduced-motion">
+			<p>ℹ️ You have <code>prefers-reduced-motion: reduce</code> enabled. As a result you won’t get to see a transition.</p>
+		</div>
+		<div class="warning" data-reason="same-document-view-transitions">
+			<p>⚠️ For this demo to work your browser needs to support Same-Document View Transitions, which is not the case. As a result you won’t get to see a transition.</p>
+		</div>
+		<div class="warning" data-reason="navigation-api">
+			<p>⚠️ For this demo to work your browser needs to support the Navigation API, which is not the case. As a result you won’t get to see a transition.</p>
+		</div>
+	</div>
+</body>
+
+</html>
