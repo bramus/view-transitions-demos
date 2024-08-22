@@ -94,7 +94,9 @@ const shouldNotIntercept = (navigationEvent) => {
 		navigationEvent.downloadRequest ||
 		// If this is a form submission,
 		// let that go to the server.
-		navigationEvent.formData
+		navigationEvent.formData ||
+		// If there is a UA transition
+		navigationEvent.hasUAVisualTransition
 	);
 };
 
