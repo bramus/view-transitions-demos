@@ -63,20 +63,31 @@ navigation.addEventListener("navigate", (e) => {
 			const $main = doc.querySelector("main");
 			const $title = doc.querySelector("head title");
 
-			// Push or Pop? Before we swap the markup, determine which animation to use for the View Transition
-			// @note: We can only do this detection here inside intercept as we need the new currentEntry to compare the old one to
-			// @note: While we could get the destination.url from the event, that’s not sufficient.
-			//        In some cases we need to compare the indices of each entry to determine the class.
-			const transitionType = determineTransitionType(navigation.lastSuccessfulEntry, navigation.currentEntry);
+			const update = () => {
+				document.title = $title.innerText;
+				document.querySelector('main').replaceWith($main); // You do trust your own markup, right?
+			};
 
-			// Update the DOM … with a View Transition
-			const t = document.startViewTransition({
-				update: () => {
-					document.title = $title.innerText;
-					document.querySelector('main').replaceWith($main); // You do trust your own markup, right?
-				},
-				types: [transitionType],
-			});
+			// The UA already provided us with a Visual Transition,
+			// there is no need to do one ourselves.
+			if (e.hasUAVisualTransition) {
+				update();
+			}
+
+			// Go View Transitions, go!
+			else {
+				// Push or Pop? Before we swap the markup, determine which animation to use for the View Transition
+				// @note: We can only do this detection here inside intercept as we need the new currentEntry to compare the old one to
+				// @note: While we could get the destination.url from the event, that’s not sufficient.
+				//        In some cases we need to compare the indices of each entry to determine the class.
+				const transitionType = determineTransitionType(navigation.lastSuccessfulEntry, navigation.currentEntry);
+
+				// Update the DOM … with a View Transition
+				const t = document.startViewTransition({
+					update,
+					types: [transitionType],
+				});
+			}
 		}
 	});
 });
