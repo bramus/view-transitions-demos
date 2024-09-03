@@ -30,7 +30,7 @@ document.querySelector('#app').addEventListener('click', async e => {
 		e.preventDefault();
 
 		// Inject new Pagination using a VT
-		transitionHelper({
+		const t = transitionHelper({
 			update: () => {
 				document.querySelector('#app').innerText = '';
 				document.querySelector('#app').appendChild(generatePagination(
@@ -41,5 +41,9 @@ document.querySelector('#app').addEventListener('click', async e => {
 			},
 			types: [direction],
 		});
+
+		// Update currentPageIndex to new value for next calculation
+		await t.ready;
+		currentPageIndex = destinationPageIndex;
 	}
 });
