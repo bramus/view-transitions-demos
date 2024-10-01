@@ -11,6 +11,8 @@
 		// Update the lastCompletedEntry value after page has loaded.
 		// Other pages on this site rely on that value …
 		document.addEventListener("DOMContentLoaded", (e) => {
+			if (!window.navigation) return;
+
 			const { id, index, key, sameDocument, url } = navigation.currentEntry;
 			localStorage.setItem("lastCompletedNavigationEntry", JSON.stringify({ id, index, key, sameDocument, url }));
 		});

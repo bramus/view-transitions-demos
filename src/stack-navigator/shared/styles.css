@@ -100,7 +100,7 @@ body {
 }
 
 .warning[data-reason="cross-document-view-transitions"] {
-	display: block; /* @TODO: Conditionally show this, once there is something like at-rule() in Chrome */
+	/* JS will show this warning when needed */
 }
 
 .warning[data-reason="navigation-api"] {

@@ -8,6 +8,27 @@ if (!globalThis.URLPattern) {
 // we need to keep track of this and adjust any URL matching using this value.
 const basePath = '/profiles/mpa';
 
+// Make sure browser has support
+document.addEventListener("DOMContentLoaded", (e) => {
+	let shouldThrow = false;
+
+	if (!window.navigation) {
+		document.querySelector('.warning[data-reason="navigation-api"]').style.display = "block";
+		shouldThrow = true;
+	}
+
+	if (!("CSSViewTransitionRule" in window)) {
+		document.querySelector('.warning[data-reason="cross-document-view-transitions"]').style.display = "block";
+		shouldThrow = true;
+	}
+
+	if (shouldThrow) {
+		// Throwing here, to prevent the rest of the code from getting executed
+		// If only JS (in the browser) had something like process.exit().
+		throw new Error('Browser is lacking support …');
+	}
+});
+
 const homePagePattern = new URLPattern(`${basePath}(/)*`, window.origin);
 const isHomePage = (url) => {
 	return homePagePattern.exec(url);
