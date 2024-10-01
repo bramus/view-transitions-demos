@@ -3,15 +3,25 @@
 const basePath = '/pagination/navigation-api';
 
 // Make sure browser has support
-if (!window.navigation || !window.performance) {
-	document.addEventListener("DOMContentLoaded", (e) => {
-		document.querySelector('.warning[data-reason="navigation-api"]').style.display = "block";
-	});
+document.addEventListener("DOMContentLoaded", (e) => {
+	let shouldThrow = false;
 
-	// Throwing here, to prevent the rest of the code from getting executed
-	// If only JS (in the browser) had something like process.exit().
-	throw new Error('Browser is lacking support …');
-}
+	if (!window.navigation) {
+		document.querySelector('.warning[data-reason="navigation-api"]').style.display = "block";
+		shouldThrow = true;
+	}
+
+	if (document.startViewTransition && !("types" in ViewTransition.prototype)) {
+		document.querySelector('.warning[data-reason="view-transition-types"]').style.display = "block";
+		shouldThrow = true;
+	}
+
+	if (shouldThrow) {
+		// Throwing here, to prevent the rest of the code from getting executed
+		// If only JS (in the browser) had something like process.exit().
+		throw new Error('Browser is lacking support …');
+	}
+});
 
 // Keep track of the last fully completed NavigationEntry as `lastSuccessfulEntry`
 // We’re gonna need this because we can’t entirely rely on currentEntry

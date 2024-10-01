@@ -1,5 +1,21 @@
 import { clamp, createElement, generatePagination, transitionHelper } from './../shared/util.js';
 
+// Make sure browser has support
+document.addEventListener("DOMContentLoaded", (e) => {
+	let shouldThrow = false;
+
+	if (document.startViewTransition && !("types" in ViewTransition.prototype)) {
+		document.querySelector('.warning[data-reason="view-transition-types"]').style.display = "block";
+		shouldThrow = true;
+	}
+
+	if (shouldThrow) {
+		// Throwing here, to prevent the rest of the code from getting executed
+		// If only JS (in the browser) had something like process.exit().
+		throw new Error('Browser is lacking support …');
+	}
+});
+
 // Config
 const numPages = 4;
 let currentPageIndex = clamp(parseInt(new URL(window.location.href).searchParams.get('p') ?? 1), 1, numPages);

@@ -1,5 +1,21 @@
 import { clamp, createElement, generatePagination } from './../shared/util.js';
 
+// Make sure browser has support
+document.addEventListener("DOMContentLoaded", (e) => {
+	let shouldThrow = false;
+
+	if (document.startViewTransition && !("types" in ViewTransition.prototype)) {
+		document.querySelector('.warning[data-reason="view-transition-types"]').style.display = "block";
+		shouldThrow = true;
+	}
+
+	if (shouldThrow) {
+		// Throwing here, to prevent the rest of the code from getting executed
+		// If only JS (in the browser) had something like process.exit().
+		throw new Error('Browser is lacking support …');
+	}
+});
+
 // Config
 const numPages = 4;
 let currentPageIndex = clamp(parseInt(new URL(window.location.href).searchParams.get('p') ?? 1), 1, numPages);
@@ -50,12 +66,7 @@ document.querySelector('#app').addEventListener('click', async e => {
 			document.querySelector('#app').innerText = '';
 			document.querySelector('#app').appendChild(createElement('div', {
 				children: [
-					createElement('p', { innerText: '⚠️ This demo needs the ViewTransitionTypes runtime flag. '}),
-					createElement('p', { innerText: 'Launch Chrome as follows: '}),
-					createElement('pre', {
-						innerText: '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary --flag-switches-begin --enable-experimental-web-platform --enable-features=ViewTransitionOnNavigation,PageSwapEvent,ViewTransitionTypes --flag-switches-end',
-						style: 'box-sizing: border-box; word-break: break-word; white-space: normal;'
-					}),
+					createElement('p', { innerText: '⚠️ This demo requires ViewTransitionTypes support.'}),
 				],
 				style: 'width: 80vw;',
 			}));
