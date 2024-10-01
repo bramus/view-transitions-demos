@@ -1,3 +1,9 @@
+// URLPattern Polyfill
+import { URLPattern as PolfyilledURLPattern } from "https://esm.sh/urlpattern-polyfill";
+if (!globalThis.URLPattern) {
+	globalThis.URLPattern = PolfyilledURLPattern;
+}
+
 // Path where this app is deployed. Because we don’t deploy at the root of the domain
 // we need to keep track of this and adjust any URL matching using this value.
 const basePath = '/profiles/mpa';
