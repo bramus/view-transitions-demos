@@ -1,7 +1,7 @@
 {
 	"name": "view-transitions-demos",
 	"version": "0.0.1",
-	"description": "View Transitions",
+	"description": "A collection of demos to show off View Transitions",
 	"scripts": {
 		"start": "netlify dev -d src",
 		"lint": "prettier --check '{src,test,cli}/**/*.{ts,tsx,js,jsx,html,css}'",
