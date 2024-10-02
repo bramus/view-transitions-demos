@@ -87,6 +87,7 @@ window.addEventListener("pagereveal", async (e) => {
 
 // Determine the View Transition class to use based on the old and new navigation entries
 // Also take the navigateEvent into account to detect UA back/forward navigations
+// @TODO: Check for dead code paths now that reload is triggered manually
 const determineTransitionClass = (oldNavigationEntry, newNavigationEntry) => {
 	const currentURL = new URL(oldNavigationEntry.url);
 	const destinationURL = new URL(newNavigationEntry.url);

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
 	if (!window.navigation) {
 		document.querySelector('.warning[data-reason="navigation-api"]').style.display = "block";
-		shouldThrow = true;
+		shouldThrow = false;
 	}
 
 	if (!("CSSViewTransitionRule" in window)) {
@@ -31,6 +31,12 @@ document.addEventListener('click', (e) => {
 	if (e.target.matches('a.back')) {
 		e.preventDefault();
 
+		// Fallback for browsers that don’t have the Navigation API
+		if (!window.navigation) {
+			history.go(-1);
+			return;
+		}
+
 		if (navigation.canGoBack) {
 			navigation.back();
 		} else {
@@ -40,16 +46,28 @@ document.addEventListener('click', (e) => {
 });
 
 window.addEventListener("pageswap", async (e) => {
-	// Nothing to do here …
+	// Define transitionClass upfront for browsers that don’t have the Navigation API
+	if (!window.navigation) {
+		const transitionClass = determineTransitionClass(e.activation.from, e.activation.entry);
+		console.log(`pageSwap: ${transitionClass}`);
+		localStorage.setItem("transitionClass", transitionClass);
+	}
 });
 
 
 // MPA View Transitions!
 window.addEventListener("pagereveal", async (e) => {
 
-	// Hide warning in browsers that support cross-document-view-transitions
-	// Since we can’t detect this directly, we assume that browsers that do pagereveal also do MPA VT
-	document.querySelector('[data-reason="cross-document-view-transitions"]').style.display = 'none';
+	// Simpler approach for browsers that don’t support the Navigation API
+	if (!window.navigation && e.viewTransition) {
+		const transitionClass = localStorage.getItem("transitionClass");
+		document.documentElement.dataset.transition = transitionClass;
+
+		await e.viewTransition.finished;
+		delete document.documentElement.dataset.transition;
+
+		return;
+	}
 
 	// There is an automatic viewTransition, so the user comes from the same origin
 	if (e.viewTransition) {
@@ -93,6 +111,10 @@ window.addEventListener("pagereveal", async (e) => {
 // Also take the navigateEvent into account to detect UA back/forward navigations
 // @TODO: Check for dead code paths now that reload is triggered manually
 const determineTransitionClass = (oldNavigationEntry, newNavigationEntry) => {
+	if (!oldNavigationEntry || !newNavigationEntry) {
+		return 'unknown';
+	}
+
 	const currentURL = new URL(oldNavigationEntry.url);
 	const destinationURL = new URL(newNavigationEntry.url);
 
