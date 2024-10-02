@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
 	if (!window.navigation) {
 		document.querySelector('.warning[data-reason="navigation-api"]').style.display = "block";
-		shouldThrow = true;
+		shouldThrow = false;
 	}
 
 	if (!("CSSViewTransitionRule" in window)) {
@@ -34,6 +34,11 @@ window.addEventListener("pageswap", async (e) => {
 		const transitionType = determineTransitionType(e.activation.from, e.activation.entry);
 		console.log(`pageSwap: ${transitionType}`);
 		e.viewTransition.types.add(transitionType);
+
+		// Persist transitionType for browsers that don’t have the Navigation API
+		if (!window.navigation) {
+			localStorage.setItem("transitionType", transitionType);
+		}
 	}
 });
 
@@ -42,7 +47,14 @@ window.addEventListener("pagereveal", async (e) => {
 
 		// @TODO: If destination does not start with basePath, abort the VT
 
-		const transitionType = determineTransitionType(navigation.activation.from, navigation.activation.entry);
+		// Get transitionType from localStorage or derive it using the NavigationActivationInformation
+		let transitionType;
+		if (!window.navigation) {
+			transitionType = localStorage.getItem("transitionType");
+		} else {
+			transitionType = determineTransitionType(navigation.activation.from, navigation.activation.entry);
+		}
+
 		console.log(`pageReveal: ${transitionType}`);
 		e.viewTransition.types.add(transitionType);
 	}
@@ -53,6 +65,10 @@ window.addEventListener("pagereveal", async (e) => {
 // Also take the navigateEvent into account to detect UA back/forward navigations
 // @TODO: Check for dead code paths now that reload is triggered manually
 const determineTransitionType = (oldNavigationEntry, newNavigationEntry) => {
+	if (!oldNavigationEntry || !newNavigationEntry) {
+		return 'unknown';
+	}
+
 	const currentURL = new URL(oldNavigationEntry.url);
 	const destinationURL = new URL(newNavigationEntry.url);
 
