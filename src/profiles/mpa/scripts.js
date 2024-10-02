@@ -1,7 +1,7 @@
 // URLPattern Polyfill
-import { URLPattern as PolfyilledURLPattern } from "https://esm.sh/urlpattern-polyfill";
 if (!globalThis.URLPattern) {
-	globalThis.URLPattern = PolfyilledURLPattern;
+	const URLPatternPolyfill = await import("https://esm.sh/urlpattern-polyfill");
+	globalThis.URLPattern = URLPatternPolyfill.URLPattern;
 }
 
 // Path where this app is deployed. Because we don’t deploy at the root of the domain
@@ -9,7 +9,7 @@ if (!globalThis.URLPattern) {
 const basePath = '/profiles/mpa';
 
 // Make sure browser has support
-document.addEventListener("DOMContentLoaded", (e) => {
+(() => {
 	let shouldThrow = false;
 
 	if (!window.navigation) {
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 		// If only JS (in the browser) had something like process.exit().
 		throw new Error('Browser is lacking support …');
 	}
-});
+})();
 
 const homePagePattern = new URLPattern(`${basePath}(/)*`, window.origin);
 const isHomePage = (url) => {
