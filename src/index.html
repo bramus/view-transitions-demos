@@ -66,7 +66,7 @@
 				}
 			}
 
-			h1, h2 {
+			h1, h2, h3 {
 				font-weight: 700;
 				text-decoration: underline;
 				text-decoration-color: hotpink;
@@ -76,7 +76,12 @@
 			}
 
 			h2 {
+				margin-top: 4rem;
 				text-decoration-color: hsl(156deg 100% 50% / 50%);
+			}
+
+			h3 {
+				text-decoration-color: hsla(75, 100%, 50%, 0.5);
 			}
 
 			a,
@@ -90,6 +95,34 @@
 				font-style: italic;
 				font-size: 0.8em;
 			}
+
+			/* DL GRID @src https://codepen.io/bramus/pen/POEaXg*/
+			dl.grid {
+				display: grid;
+				grid-template: auto / 20em 1fr;
+			}
+
+			dl.grid dt {
+				grid-column: 1;
+				font-weight: 500;
+			}
+
+			dl.grid dd {
+				grid-column: 2;
+			}
+
+			dl.grid :is(dt, dd) {
+				margin: 0;
+				padding: .3em .5em;
+				border-top: 1px solid rgba(0,0,0,.1);
+			}
+
+			dl.grid :is(dt, dd) > :first-child {
+				margin-top: 0;
+			}
+			dl.grid :is(dt, dd) > :last-child {
+				margin-bottom: 0;
+			}
 		}
 	</style>
 </head>
@@ -97,9 +130,30 @@
 	<main>
 		<h1>View Transitions</h1>
 
-		<p>A collection of demos to show off View Transitions.</p>
+		<p>A collection of demos to show off <a href="https://developer.chrome.com/docs/web-platform/view-transitions/">View Transitions</a>.</p>
 
-		<h2>Pagination</h2>
+		<h2>Browser Support</h2>
+
+		<p>The demos listed on this site rely on several features related to View Transitions that can ship indivdually in browsers. Because of that, some demos won’t work entirely or not at all depending on which browser you are using.</p>
+
+		<dl class="grid">
+			<dt>Same-Document View Transitions</dt>
+			<dd>Chrome 111+, Safari 18+</dd>
+			<dt>Cross-Document View Transitions</dt>
+			<dd>Chrome 126+, Safari Technology Preview</dd>
+			<dt>View Transition Types</dt>
+			<dd>Chrome 125+, Safari Technology Preview</dd>
+			<dt>View Transition Classes</dt>
+			<dd>Chrome 125+, Safari Technology Preview</dd>
+			<dt>Navigation API</dt>
+			<dd>Chrome 102+</dd>
+		</dl>
+
+		<p>When your browser does not support one of the required features, a warning will be shown on screen.</p>
+
+		<h2>The Demos</h2>
+
+		<h3>Pagination</h3>
 
 		<p>Pagination component that slides the page based on the direction you are going.</p>
 
@@ -111,7 +165,7 @@
 			<li><a href="/pagination/mpa/">MPA</a> <em>(Chrome 126+, Safari TP)</em></li>
 		</ul>
 
-		<h2>Stack Navigator</h2>
+		<h3>Stack Navigator</h3>
 
 		<p>Chat application that sports a Stack Navigator type of transitions.</p>
 
@@ -122,7 +176,7 @@
 			<li><a href="/stack-navigator/mpa-prerender/">MPA (with Prerender)</a> <em>(Chrome 126+)</em></li>
 		</ul>
 
-		<h2>Profiles</h2>
+		<h3>Profiles</h3>
 
 		<p>List of profiles, with overview - detail navigation</p>
 
@@ -130,7 +184,7 @@
 			<li><a href="/profiles/mpa/">MPA + Navigation API</a> <em>(Chrome 126+)</em></li>
 		</ul>
 
-		<h2>Cards</h2>
+		<h3>Cards</h3>
 
 		<p>Add/remove cards to the list. Has entry/exit animations and also uses <code>view-transition-class</code>.</p>
 
@@ -138,7 +192,7 @@
 			<li><a href="/cards/spa/">SPA with <code>view-transition-class</code></a> <em>(Chrome 125+, Safari TP)</em></li>
 		</ul>
 
-		<h2>Video Zoom</h2>
+		<h3>Video Zoom</h3>
 
 		<p>Make a <code>video</code> element bigger while it keeps playing.</p>
 
@@ -146,7 +200,7 @@
 			<li><a href="/video/mpa/">MPA</a> leveraging <code>pageswap</code> and <code>pagereveal</code> to transfer state between pages <em>(Chrome 126+, Safari TP)</em></li>
 		</ul>
 
-		<h2>Circle</h2>
+		<h3>Circle</h3>
 
 		<p>A circular clip path reveal from one view/page to the other.</p>
 
