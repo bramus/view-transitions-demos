@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"description": "A collection of demos to show off View Transitions",
 	"scripts": {
-		"start": "netlify dev -d src",
+		"start": "http-server src -p 3000 -d false --no-dotfiles -c-1",
 		"lint": "prettier --check '{src,test,cli}/**/*.{ts,tsx,js,jsx,html,css}'",
 		"format": "prettier --write '{src,test,cli}/**/*.{ts,tsx,js,jsx,html,css}'",
 		"test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +19,7 @@
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"netlify-cli": "^17.36.4",
+		"http-server": "^14.1.1",
 		"prettier": "^3.3.3"
 	}
 }
