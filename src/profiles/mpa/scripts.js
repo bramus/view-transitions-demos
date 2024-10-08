@@ -61,8 +61,8 @@ const setTemporaryViewTransitionNames = async (entries, vtPromise) => {
 // on the elements that link to that detail page
 window.addEventListener('pageswap', async (e) => {
 	if (e.viewTransition) {
-		const currentUrl = e.activation.from?.url ? new URL(e.activation.from.url) : null;
-		const targetUrl = new URL(e.activation.entry.url);
+		const currentUrl = e.activation.from?.url ? new URL(e.activation.from.url.replace('.html', '')) : null;
+		const targetUrl = new URL(e.activation.entry.url.replace('.html', ''));
 
 		// Only transition to same basePath
 		// ~> SKIP!
@@ -99,8 +99,8 @@ window.addEventListener('pagereveal', async (e) => {
 	if (!navigation.activation.from) return;
 
 	if (e.viewTransition) {
-		const fromUrl = new URL(navigation.activation.from.url);
-		const currentUrl = new URL(navigation.activation.entry.url);
+		const fromUrl = new URL(navigation.activation.from.url.replace('.html', ''));
+		const currentUrl = new URL(navigation.activation.entry.url.replace('.html', ''));
 
 		// Only transition to/from same basePath
 		// ~> SKIP!
