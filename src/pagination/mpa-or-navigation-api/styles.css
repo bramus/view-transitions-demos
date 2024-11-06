@@ -1,0 +1,98 @@
+@view-transition {
+	navigation: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html:active-view-transition-type(forwards, backwards) {
+		:root {
+			view-transition-name: none;
+		}
+		article {
+			view-transition-name: content;
+		}
+		.pagination {
+			view-transition-name: pagination;
+		}
+	}
+
+	html:active-view-transition-type(forwards) {
+		&::view-transition-old(content) {
+			animation-name: slide-out-to-left;
+		}
+		&::view-transition-new(content) {
+			animation-name: slide-in-from-right;
+		}
+	}
+
+	html:active-view-transition-type(backwards) {
+		&::view-transition-old(content) {
+			animation-name: slide-out-to-right;
+		}
+		&::view-transition-new(content) {
+			animation-name: slide-in-from-left;
+		}
+	}
+
+	html:active-view-transition-type(reload) {
+		&::view-transition-old(root) {
+			animation-name: fade-out, scale-down;
+		}
+		&::view-transition-new(root) {
+			animation-delay: 0.25s;
+			animation-name: fade-in, scale-up;
+		}
+	}
+}
+
+@layer warnings {
+	@layer detection {
+		/* Prefers Reduced Motion */
+		@media (prefers-reduced-motion: reduce) {
+			.warning[data-reason="prefers-reduced-motion"] {
+				display: block;
+			}
+		}
+
+		/* Navigation API Support */
+		.warning[data-reason="navigation-api"] {
+			/* JS will show this warning when needed */
+		}
+
+		/* SPA View Transitions Support */
+		@supports not (view-transition-name: works) {
+			.warning[data-reason="same-document-view-transitions"] {
+				display: block;
+			}
+		}
+	}
+	@layer layout {
+		.warning {
+			box-sizing: border-box;
+			padding: 1em;
+			margin: 1em 0;
+			border: 1px solid #ccc;
+			background: rgba(255 255 205 / 0.8);
+			display: none;
+		}
+
+		.warning > :first-child {
+			margin-top: 0;
+		}
+
+		.warning > :last-child {
+			margin-bottom: 0;
+		}
+
+		.warning a {
+			color: blue;
+		}
+		.warning--info {
+			border: 1px solid #123456;
+			background: rgb(205 230 255 / 0.8);
+		}
+		.warning--alarm {
+			border: 1px solid red;
+			background: #ff000010;
+		}
+	}
+}
