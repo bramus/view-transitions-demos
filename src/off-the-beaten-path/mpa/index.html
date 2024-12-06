@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Off the beaten path</title>
+	<link rel="stylesheet" href="../shared/styles.css">
+	<link rel="stylesheet" href="styles.css">
+	<script src="scripts.js" type="module" blocking="render"></script>
+	<script src="inject-speculation-rules.js" defer></script>
+</head>
+<body>
+	<main id="overview" class="visible">
+		<h1>Get off<br>the beaten path</h1>
+
+		<p class="subtitle">Discover hidden corners and delightful<br>experiences nearby</p>
+
+		<ul class="offer">
+			<li>
+				<a href="detail1.html" data-id=1>
+					<span class="arrow">&rarr;</span>
+					<h2>Lake Marble<br>Viewpoint</h2>
+				</a>
+			</li>
+			<li>
+				<a href="detail2.html" data-id=2>
+					<span class="arrow">&rarr;</span>
+					<h2>Farnsworth<br>Creek</h2>
+				</a>
+			</li>
+			<li>
+				<a href="detail3.html" data-id=3>
+					<span class="arrow">&rarr;</span>
+					<h2>Black Rock<br>Beach</h2>
+				</a>
+			</li>
+		</ul>
+	</main>
+	<div class="warnings">
+		<div class="warning warning--info" data-reason="prefers-reduced-motion">
+			<p>ℹ️ You have <code>prefers-reduced-motion: reduce</code> enabled. As a result you won’t get to see a transition.</p>
+		</div>
+		<div class="warning" data-reason="cross-document-view-transitions">
+			<p>⚠️ For this demo to work your browser needs to support Cross-Document View Transitions, which is not the case. As a result you won’t get to see a transition.</p>
+		</div>
+		<div class="warning" data-reason="navigation-api">
+			<p>⚠️ For this demo to work your browser needs to support the Navigation API, which is not the case. As a result you won’t get to see a transition or only a partially working transition.</p>
+		</div>
+	</div>
+</body>
+</html>
