@@ -1,5 +1,10 @@
 @layer view-transitions {
 
+	/* Force flat capture mode (Disable Chrome Canary Experiment) */
+	html, html * {
+		view-transition-capture-mode: flat;
+	}
+
 	:active-view-transition-type(to-detail, to-overview) {
 		#overview.visible .last-clicked {
 			view-transition-name: photo;
