@@ -1,0 +1,316 @@
+@layer base {
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		text-transform: uppercase;
+	}
+
+	body {
+		font-size: 20px;
+	}
+
+	h1, h2 {
+		font-weight: 200;
+		width: fit-content;
+	}
+
+	main {
+		display: none;
+
+		&.visible {
+			display: block;
+			min-width: 1200px;
+			max-width: 1600px;
+			margin: 0 auto;
+			height: 100svh;
+			display: grid;
+			place-content: safe center;
+			padding: 50px 100px;
+		}
+	}
+}
+
+@layer overview {
+	#overview.visible {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+	}
+
+	.subtitle {
+		text-transform: uppercase;
+	}
+
+	.offer {
+		list-style: none;
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+
+		li {
+			flex: 1;
+		}
+	}
+
+	a[data-id] {
+		text-decoration: none;
+		background-position: 50% 50%;
+		background-size: cover;
+		aspect-ratio: 1;
+
+		color: white;
+
+		display: flex;
+		flex-direction: column;
+		place-content: space-between;
+		padding: 2rem;
+
+		.arrow {
+			background: #fcd36d;
+			width: min-content;
+			padding: 0.25rem 1rem;
+			border-radius: 0.75rem;
+			font-size: 1.5em;
+		}
+
+		&:hover .arrow {
+			background: goldenrod;
+		}
+	}
+
+	a[data-id="1"] {
+		background-image: url(https://picsum.photos/id/10/1600/800);
+	}
+	a[data-id="2"] {
+		background-image: url(https://picsum.photos/id/11/1600/800);
+	}
+	a[data-id="3"] {
+		background-image: url(https://picsum.photos/id/12/1600/800);
+	}
+}
+
+@layer detail {
+	#detail.visible {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2rem;
+	}
+	.hero {
+		grid-column: span 2;
+	}
+
+	.hero {
+		aspect-ratio: 2/1;
+		background-position: 50% 50%;
+		background-size: cover;
+
+		position: relative;
+		padding: 2rem;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		gap: 2rem;
+
+		color: white;
+	}
+
+	.back {
+		position: absolute;
+		top: 2rem;
+		left: 2rem;
+
+		display: block;
+		text-align: center;
+		place-content: center;
+		width: 3rem;
+		aspect-ratio: 1;
+
+		color: white;
+		text-decoration: none;
+		font-weight: 700;
+		background: black;
+		border: 3px solid white;
+		border-radius: 50%;
+		opacity: 0.7;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	ul.labels {
+		list-style: none;
+		font-size: 0.5em;
+
+		li {
+			display: inline;
+			background: #fcd36d;
+			width: min-content;
+			padding: 0.25rem 1rem;
+			border-radius: 2rem;
+			font-size: 1.5em;
+
+			+ li {
+				margin-left: 1ch;
+			}
+		}
+	}
+
+	.description {
+		display: grid;
+		place-content: safe center;
+		p {
+			margin-bottom: 2rem;
+			line-height: 1.42;
+		}
+	}
+
+	.photos {
+		display: flex;
+		flex-wrap: 0;
+		gap: 1rem;
+		overflow-x: scroll;
+
+		img {
+			height: 100%;
+			width: auto;
+		}
+	}
+}
+
+@layer view-transitions {
+	#overview.visible .last-clicked {
+		view-transition-name: photo;
+	}
+	#overview.visible .last-clicked h2 {
+		view-transition-name: title;
+	}
+	#overview.visible .last-clicked .arrow {
+		view-transition-name: forward-button;
+	}
+
+	#detail.visible .hero {
+		view-transition-name: photo;
+	}
+	#detail.visible h1 {
+		view-transition-name: title;
+	}
+	#detail.visible .back {
+		view-transition-name: back-button;
+	}
+	#detail.visible .labels {
+		view-transition-name: labels;
+	}
+
+	::view-transition {
+		--before-duration: 0.35s;
+		--main-duration: 0.75s;
+		--after-duration: 0.35s;
+	}
+
+	@keyframes root {
+		to {
+			translate: 0 2rem;
+			opacity: 0;
+		}
+	}
+
+	::view-transition-old(root) {
+		animation-name: root;
+		animation-duration: var(--before-duration);
+	}
+	::view-transition-new(root) {
+		animation-name: root;
+		animation-direction: reverse;
+		animation-delay: calc(var(--before-duration) + (var(--main-duration) * 0.75)); /* Wait for photo to have moved */
+		animation-duration: var(--after-duration);
+	}
+
+	/* Expand open the thumbnail to the hero image. Always use the wide image for this */
+	:active-view-transition-type(to-detail)::view-transition-old(photo),
+	:active-view-transition-type(to-overview)::view-transition-new(photo){
+		display: none;
+	}
+	:active-view-transition-type(to-detail)::view-transition-new(photo),
+	:active-view-transition-type(to-overview)::view-transition-old(photo) {
+		animation: none;
+		height: 100%;
+		overflow: clip;
+		object-fit: cover;
+	}
+
+	/* Timing for the photo + title. Wait for the rest of the UI to moved first */
+	::view-transition-group(photo),
+	::view-transition-group(title) {
+			animation-duration: var(--main-duration);
+	}
+	::view-transition-group(photo),
+	::view-transition-group(title) {
+			animation-delay: var(--before-duration);
+	}
+
+	/* Fade out the forward-button arrow */
+	@keyframes forward-button {
+		to {
+			opacity: 0;
+		}
+	}
+	::view-transition-new(forward-button):only-child,
+	::view-transition-old(forward-button):only-child {
+		animation-name: forward-button;
+		animation-timing-function: ease;
+	}
+	::view-transition-new(forward-button):only-child {
+		animation-duration: var(--after-duration);
+		animation-delay: calc(var(--before-duration) + var(--main-duration)); /* Wait for photo to have moved */
+		animation-direction: reverse; /* Slide-out instead of in */
+	}
+	::view-transition-old(forward-button):only-child {
+		animation-duration: var(--before-duration);
+	}
+
+	/* Fade in the back-button arrow */
+	@keyframes back-button {
+		from {
+			opacity: 0;
+			translate: -100% 0;
+		}
+	}
+	::view-transition-new(back-button):only-child,
+	::view-transition-old(back-button):only-child{
+		animation-name: back-button;
+		animation-timing-function: ease;
+	}
+	::view-transition-new(back-button):only-child {
+		animation-duration: var(--after-duration);
+		animation-delay: calc(var(--before-duration) + var(--main-duration)); /* Wait for photo to have moved */
+	}
+	::view-transition-old(back-button):only-child {
+		animation-duration: var(--before-duration);
+		animation-direction: reverse; /* Slide-out instead of in */
+	}
+
+	/* Move the labels */
+	@keyframes labels {
+		from {
+			opacity: 0;
+			translate: 0 100%;
+		}
+	}
+	::view-transition-new(labels):only-child,
+	::view-transition-old(labels):only-child{
+		animation-name: labels;
+		animation-timing-function: ease;
+	}
+	::view-transition-new(labels):only-child {
+		animation-duration: var(--after-duration);
+		animation-delay: calc(var(--before-duration) + var(--main-duration)); /* Wait for photo to have moved */
+	}
+	::view-transition-old(labels):only-child {
+		animation-duration: var(--before-duration);
+		animation-direction: reverse; /* Slide-out instead of in */
+	}
+
+}
