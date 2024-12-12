@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>View Transitions Sortable List</title>
+	<link rel="stylesheet" href="/sortable/v-t-group/styles.css">
+	<script src="/sortable/v-t-group/scripts.js" type="module"></script>
+</head>
+<body>
+	<ul>
+		<li style="view-transition-name: album-1;"><img draggable="false" src="https://assets.codepen.io/89905/coverflow--Odd-World-EP-SMALL-1024x1024.png" width="1200" height="1200" /> album 1</li>
+		<li style="view-transition-name: album-2;"><img draggable="false" src="https://assets.codepen.io/89905/coverflow--Forest-Blue-Pre-LR-1024x1024.png" width="1200" height="1200" /> album 2</li>
+		<li style="view-transition-name: album-3;"><img draggable="false" src="https://assets.codepen.io/89905/coverflow--MOM-Remixes-1024x1024.jpg" width="1200" height="1200" /> album 3</li>
+		<li style="view-transition-name: album-4;"><img draggable="false" src="https://assets.codepen.io/89905/coverflow--ALONE-TOGETHER-remix-V71-550x550.jpg" width="1200" height="1200" /> album 4</li>
+		<li style="view-transition-name: album-5;"><img draggable="false" src="https://assets.codepen.io/89905/coverflow--Nature-Therapy-Pre-LR-550x550.png" width="1200" height="1200" /> album 5</li>
+		<li style="view-transition-name: album-6;"><img draggable="false" src="https://assets.codepen.io/89905/coverflow--Odd-World-EP-SMALL-1024x1024.png" width="1200" height="1200" /> album 6</li>
+		<li style="view-transition-name: album-7;"><img draggable="false" src="https://assets.codepen.io/89905/coverflow--Forest-Blue-Pre-LR-1024x1024.png" width="1200" height="1200" /> album 7</li>
+		<li style="view-transition-name: album-8;"><img draggable="false" src="https://assets.codepen.io/89905/coverflow--MOM-Remixes-1024x1024.jpg" width="1200" height="1200" /> album 8</li>
+		<li style="view-transition-name: album-9;"><img draggable="false" src="https://assets.codepen.io/89905/coverflow--ALONE-TOGETHER-remix-V71-550x550.jpg" width="1200" height="1200" /> album 9</li>
+		<li style="view-transition-name: album-10;"><img draggable="false" src="https://assets.codepen.io/89905/coverflow--Nature-Therapy-Pre-LR-550x550.png" width="1200" height="1200" /> album 10</li>
+	</ul>
+
+	<button>REORDER</button>
+
+	<div class="warnings">
+		<div class="warning warning--info" data-reason="prefers-reduced-motion">
+			<p>ℹ️ You have <code>prefers-reduced-motion: reduce</code> enabled. As a result you won’t get to see a transition.</p>
+		</div>
+		<div class="warning" data-reason="view-transition-group">
+			<p>⚠️ Your browser does not support <code>view-transition-group</code>. As a result, the items will bleed out of the scroller while the transition is running.</p>
+		</div>
+	</div>
+</body>
+</html>

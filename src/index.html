@@ -162,7 +162,9 @@
 			<dt>Navigation API</dt>
 			<dd><ul><li>Chrome 102+</li><li>Safari Technology Preview with flags</li></ul></dd>
 			<dt>Auto View Transition Naming</dt>
-			<dd><ul><li>Chrome with Experimental Web Platform Features flag</li><li>Safari 18.2+</li></ul></dd>
+			<dd><ul><li>Chrome with <code>#enable-experimental-web-platform-features</code> flag</li><li>Safari 18.2+</li></ul></dd>
+			<dt>Nested View Transition Groups</dt>
+			<dd><ul><li>Chrome with <code>#enable-experimental-web-platform-features</code> flag</li></ul></dd>
 		</dl>
 
 		<p>When your browser does not support one of the required features, a warning will be shown on screen.</p>
@@ -209,7 +211,7 @@
 
 		<ul>
 			<li><a href="/cards/spa/">SPA with <code>view-transition-class</code></a> <em>(Chrome 125+, Safari 18.2+)</em></li>
-			<li><a href="/cards/spa-auto/">SPA with <code>view-transition-class</code> and <code>view-transition-name: auto</code></a> <em>(Chrome with flags, Safari 18.2+)</em></li>
+			<li><a href="/cards/spa-auto/">SPA with <code>view-transition-class</code> and <code>view-transition-name: auto</code></a> <em>(Chrome with <code>#enable-experimental-web-platform-features</code> flag, Safari 18.2+)</em></li>
 		</ul>
 
 		<h3>Video Zoom</h3>
@@ -236,6 +238,14 @@
 		<ul>
 			<li><a href="/off-the-beaten-path/spa/">SPA</a></li>
 			<li><a href="/off-the-beaten-path/mpa/">MPA + Navigation API</a> leveraging <code>pageswap</code> and <code>pagereveal</code> to transfer state between pages <em>(Chrome 126+, Safari TP with flags)</em></li>
+		</ul>
+
+		<h3>Sortable</h3>
+
+		<p>List of sortable items inside a scrollable container</p>
+
+		<ul>
+			<li><a href="/sortable/v-t-group/">Nested View Transition Groups with <code>view-transition-group</code></a> <em>(Chrome with <code>#enable-experimental-web-platform-features</code> flag)</em></li>
 		</ul>
 
 		<footer>

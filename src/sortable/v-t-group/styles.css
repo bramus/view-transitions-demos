@@ -1,0 +1,176 @@
+@layer view-transitions {
+	/* Force capture mode to flat */
+	* {
+		view-transition-capture-mode: flat;
+	}
+
+	/* Don’t capture root */
+	:root {
+		view-transition-name: none;
+	}
+
+	ul {
+		view-transition-name: albums-wrapper;
+		view-transition-group: contain;
+	}
+
+	::view-transition-group(albums-wrapper) {
+		overflow: clip;
+	}
+
+	li {
+		/* Every li has a view-transition-name set via the style attribute */
+	}
+
+	li img {
+		view-transition-class: cover;
+	}
+
+	::view-transition-group(*) {
+		animation-duration: 1s;
+	}
+
+	::view-transition-old(*) {
+		display: none;
+	}
+	::view-transition-new(*) {
+		animation: none;
+	}
+
+}
+
+@layer layout {
+	:root {
+		color-scheme: dark;
+		font-family: system-ui;
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		padding: 1rem;
+		font-size: 2em;
+	}
+
+	ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		border: 2px solid;
+		padding: 1rem;
+		border-radius: 0.25em;
+		margin: 1rem 0;
+	}
+
+	li {
+		border: 2px solid;
+		padding: 1rem;
+		border-radius: 0.25em;
+
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		background: Canvas;
+
+		img {
+			width: 4rem;
+			height: 4rem;
+		}
+	}
+
+	ul {
+		height: 90vh;
+		max-height: 20rem;
+		overflow-y: scroll;
+	}
+
+	body {
+		max-width: 60rem;
+		margin: 0 auto;
+	}
+
+	button, input {
+		font-family: inherit;
+		font-size: inherit;
+	}
+
+	label {
+		display: block;
+		width: fit-content;
+	}
+}
+
+@layer warnings {
+	/* Warnings and Preferences */
+	@media (prefers-reduced-motion: reduce) {
+		.warning[data-reason="prefers-reduced-motion"] {
+			display: block;
+		}
+	}
+
+	@supports not (view-transition-name: works) {
+		.warning[data-reason="same-document-view-transitions"] {
+			display: block;
+		}
+	}
+
+	@supports not (view-transition-group: works) {
+		.warning[data-reason="view-transition-group"] {
+			display: block;
+		}
+	}
+
+	.warning[data-reason="cross-document-view-transitions"] {
+		/* JS will show this warning when needed */
+	}
+
+	.warning[data-reason="navigation-api"] {
+		/* JS will show this warning when needed */
+	}
+
+	.warnings {
+		position: fixed;
+		bottom: 1em;
+		left: 1em;
+		right: 1em;
+		view-transition-name: warning; /* Don’t transition this with the rest of the stuff */
+		color: black;
+	}
+
+	@layer warning {
+		.warning {
+			box-sizing: border-box;
+			padding: 1em;
+			margin: 1em 0;
+			border: 1px solid #ccc;
+			background: rgba(255 255 205 / 0.8);
+			display: none;
+		}
+
+		.warning > :first-child {
+			margin-top: 0;
+		}
+
+		.warning > :last-child {
+			margin-bottom: 0;
+		}
+
+		.warning a {
+			color: blue;
+		}
+		.warning--info {
+			border: 1px solid #123456;
+			background: rgb(205 230 255 / 0.8);
+		}
+		.warning--alarm {
+			border: 1px solid red;
+			background: #ff000010;
+		}
+	}
+}
