@@ -1,89 +1,17 @@
-@layer view-transitions {
+@layer view-transitions;
 
-	/* Don’t capture the root, allowing pointer interaction while cards are animating */
-	@layer no-root {
-		:root {
-			view-transition-name: none;
-		}
-		::view-transition {
-			pointer-events: none;
-		}
-	}
-
-	/* Cards, in general, should use a bounce effect when moving to their new position */
-	@layer reorder-cards {
-		@supports (view-transition-class: card) {
-			.warning {
-				display: none;
-			}
-
-			:root {
-				--bounce-easing: linear(
-					0, 0.004, 0.016, 0.035, 0.063, 0.098, 0.141 13.6%, 0.25, 0.391, 0.563, 0.765,
-					1, 0.891 40.9%, 0.848, 0.813, 0.785, 0.766, 0.754, 0.75, 0.754, 0.766, 0.785,
-					0.813, 0.848, 0.891 68.2%, 1 72.7%, 0.973, 0.953, 0.941, 0.938, 0.941, 0.953,
-					0.973, 1, 0.988, 0.984, 0.988, 1
-				);
-			}
-
-			.card {
-				view-transition-class: card;
-			}
-
-			/* Without view-transition-class you had to write a selector that targets all cards … and that selector needed updating whenever you added/removed a card */
-			::view-transition-group(*.card) {
-				animation-timing-function: var(--bounce-easing);
-				animation-duration: 0.5s;
-			}
-		}
-	}
-
-	/* Newly added cards should animate-in */
-	@layer add-card {
-		@keyframes animate-in {
-			0% {
-				opacity: 0;
-				translate: 0 -200px;
-			}
-			100% {
-				opacity: 1;
-				translate: 0 0;
-			}
-		}
-
-		::view-transition-new(targeted-card):only-child {
-			animation: animate-in ease-in 0.25s;
-		}
-	}
-
-	/* Cards that get removed should animate-out */
-	@layer remove-card {
-		@keyframes animate-out {
-			0% {
-				opacity: 1;
-				translate: 0 0;
-			}
-			100% {
-				opacity: 0;
-				translate: 0 -200px;
-			}
-		}
-
-		::view-transition-old(targeted-card):only-child {
-			animation: animate-out ease-out 0.5s;
-		}
-	}
-
-}
-
-/* Etc. */
 @layer base {
+	* {
+		box-sizing: border-box;
+	}
+
 	body {
 		display: grid;
 		height: 90dvh;
 		place-items: center;
 		padding: 2rem 0;
 		font-family: system-ui, sans-serif;
+		width: 100%;
 	}
 
 	.cards {
@@ -92,8 +20,10 @@
 		justify-content: center;
 		width: 100%;
 		gap: 2rem;
-		padding: 1rem;
-		flex-wrap: wrap;
+		padding: 1rem 2rem;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+/* 		flex-wrap: wrap; */
 	}
 
 	.card {
@@ -102,8 +32,8 @@
 		display: block;
 		position: relative;
 		border-radius: 1rem;
-		max-width: 220px;
-		min-width: 100px;
+		max-width: 10vw;
+		min-width: 50px;
 
 		background-color: grey;
 	}
@@ -165,11 +95,11 @@
 
 @layer warning {
 	.warning {
-		box-sizing: border-box;
 		padding: 1em;
 		margin: 1em 0;
 		border: 1px solid #ccc;
 		background: rgba(255 255 205 / 0.8);
+		text-align: center;
 	}
 
 	.warning > :first-child {

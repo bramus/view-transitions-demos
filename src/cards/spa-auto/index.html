@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Boxes</title>
 	<link rel="stylesheet" href="/cards/shared/styles.css">
-	<link rel="stylesheet" href="/cards/spa/styles.css">
-	<script src="/cards/spa/scripts.js" type="module"></script>
+	<link rel="stylesheet" href="/cards/spa-auto/styles.css">
+	<script src="/cards/spa-auto/scripts.js" type="module"></script>
 </head>
 <body>
 	<button class="add-btn">
@@ -22,30 +22,34 @@
 	</template>
 
 	<ul class="cards">
-	  <li class="card" style="view-transition-name: card-1; background-color: tan;">
+	  <li class="card" style="background-color: tan;">
 		<button class="delete-btn">
 		  <span class="sr-only">Delete</span>
 		</button>
 	  </li>
-	  <li class="card" style="view-transition-name: card-2; background-color: khaki;">
+	  <li class="card" style="background-color: khaki;">
 		<button class="delete-btn">
 		  <span class="sr-only">Delete</span>
 		</button>
 	  </li>
-	  <li class="card" style="view-transition-name: card-3; background-color: thistle;">
+	  <li class="card" style="background-color: thistle;">
 		<button class="delete-btn">
 		  <span class="sr-only">Delete</span>
 		</button>
 	  </li>
-	  <li class="card" style="view-transition-name: card-4; background-color: wheat;">
+	  <li class="card" style="background-color: wheat;">
 		<button class="delete-btn">
 		  <span class="sr-only">Delete</span>
 		</button>
 	  </li>
 	</ul>
 
-	<div class="warning">
-		<p>You browser does not support <code>view-transtion-class: &lt;custom-ident&gt;+</code>. As a result, the existing cards will not bounce upon inserting/deleting a card.</p>
+	<div class="warning" data-reason="view-transition-class">
+		<p>Your browser does not support <code>view-transtion-class: &lt;custom-ident&gt;+</code>. As a result, the existing cards will not bounce when inserting/deleting a card.</p>
+	</div>
+
+	<div class="warning" data-reason="auto-view-transition-name">
+		<p>Your browser does not support <code>view-transtion-name: auto</code>. As a result, the existing cards will not transition when inserting/deleting a card. You should <a href="/cards/spa" target="_top">check out this alternative version</a> instead.</p>
 	</div>
 
 	<footer>

@@ -29,7 +29,7 @@ document.querySelector('.add-btn').addEventListener('click', async (e) => {
 		document.querySelector('.cards').appendChild($newCard);
 	});
 
-	await transition.finished;
+	await transition.ready;
 
 	const rand = window.performance.now().toString().replace('.', '_') + Math.floor(Math.random() * 1000);
 	document.querySelector('.cards .card:last-child').style.viewTransitionName = `card-${rand}`;
