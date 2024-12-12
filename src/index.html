@@ -97,24 +97,34 @@
 			}
 
 			/* DL GRID @src https://codepen.io/bramus/pen/POEaXg*/
-			dl.grid {
-				display: grid;
-				grid-template: auto / 20em 1fr;
+			@media (min-width: 900px) {
+				dl.grid {
+					display: grid;
+					grid-template: auto / 360px 1fr;
+				}
+
+				dl.grid dt {
+					grid-column: 1;
+				}
+
+				dl.grid dd {
+					grid-column: 2;
+				}
+
+				dl.grid :is(dt, dd) {
+					margin: 0;
+					padding: .3em .5em;
+					border-top: 1px solid rgba(0,0,0,.1);
+				}
 			}
 
 			dl.grid dt {
-				grid-column: 1;
 				font-weight: 500;
-			}
-
-			dl.grid dd {
-				grid-column: 2;
 			}
 
 			dl.grid :is(dt, dd) {
 				margin: 0;
 				padding: .3em .5em;
-				border-top: 1px solid rgba(0,0,0,.1);
 			}
 
 			dl.grid :is(dt, dd) > :first-child {
@@ -122,6 +132,10 @@
 			}
 			dl.grid :is(dt, dd) > :last-child {
 				margin-bottom: 0;
+			}
+
+			dl.grid ul {
+				list-style-type: circle;
 			}
 		}
 	</style>
@@ -138,15 +152,15 @@
 
 		<dl class="grid">
 			<dt>Same-Document View Transitions</dt>
-			<dd>Chrome 111+, Safari 18+</dd>
+			<dd><ul><li>Chrome 111+</li><li>Safari 18+</li></ul></dd>
 			<dt>Cross-Document View Transitions</dt>
-			<dd>Chrome 126+, Safari 18.2+</dd>
+			<dd><ul><li>Chrome 126+</li><li>Safari 18.2+</li></ul></dd>
 			<dt>View Transition Types</dt>
-			<dd>Chrome 125+, Safari 18.2+</dd>
+			<dd><ul><li>Chrome 125+</li><li>Safari 18.2+</li></ul></dd>
 			<dt>View Transition Classes</dt>
-			<dd>Chrome 125+, Safari 18.2+</dd>
+			<dd><ul><li>Chrome 125+</li><li>Safari 18.2+</li></ul></dd>
 			<dt>Navigation API</dt>
-			<dd>Chrome 102+, Safari Technology Preview with flags</dd>
+			<dd><ul><li>Chrome 102+</li><li>Safari Technology Preview with flags</li></ul></dd>
 		</dl>
 
 		<p>When your browser does not support one of the required features, a warning will be shown on screen.</p>
