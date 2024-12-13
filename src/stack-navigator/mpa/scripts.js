@@ -8,12 +8,12 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
 	if (!window.navigation) {
 		document.querySelector('.warning[data-reason="navigation-api"]').style.display = "block";
-		shouldThrow = false;
+		shouldThrow = true;
 	}
 
 	if (!("CSSViewTransitionRule" in window)) {
 		document.querySelector('.warning[data-reason="cross-document-view-transitions"]').style.display = "block";
-		shouldThrow = true;
+		shouldThrow = false;
 	}
 
 	if (shouldThrow) {

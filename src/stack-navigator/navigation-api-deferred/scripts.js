@@ -3,15 +3,25 @@
 const basePath = '/stack-navigator/navigation-api-deferred';
 
 // Make sure browser has support
-if (!window.navigation || !window.performance) {
-	document.addEventListener("DOMContentLoaded", (e) => {
-		document.querySelector('.warning[data-reason="navigation-api"]').style.display = "block";
-	});
+document.addEventListener("DOMContentLoaded", (e) => {
+	let shouldThrow = false;
 
-	// Throwing here, to prevent the rest of the code from getting executed
-	// If only JS (in the browser) had something like process.exit().
-	throw new Error('Browser is lacking support …');
-}
+	if (!window.navigation) {
+		document.querySelector('.warning[data-reason="navigation-api"]').style.display = "block";
+		shouldThrow = true;
+	}
+
+	if ((NavigateEvent.prototype.commit == undefined)) {
+		document.querySelector('.warning[data-reason="navigation-api-deferred-commit"]').style.display = "block";
+		shouldThrow = false;
+	}
+
+	if (shouldThrow) {
+		// Throwing here, to prevent the rest of the code from getting executed
+		// If only JS (in the browser) had something like process.exit().
+		throw new Error('Browser is lacking support …');
+	}
+});
 
 // Convert all UI back links to a UA back.
 //
