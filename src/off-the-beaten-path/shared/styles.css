@@ -165,7 +165,6 @@
 
 		&.visible {
 			display: block;
-			min-width: 1200px;
 			max-width: 1600px;
 			margin: 0 auto;
 			height: 100svh;
@@ -190,8 +189,12 @@
 	.offer {
 		list-style: none;
 		display: flex;
-		flex-direction: row;
 		gap: 1rem;
+		flex-direction: column;
+
+		@media (width >= 1000px) {
+			flex-direction: row;
+		}
 
 		li {
 			flex: 1;
