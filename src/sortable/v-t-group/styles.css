@@ -9,21 +9,8 @@
 		view-transition-name: none;
 	}
 
-	ul {
-		view-transition-name: albums-wrapper;
-		view-transition-group: contain;
-	}
-
-	::view-transition-group(albums-wrapper) {
-		overflow: clip;
-	}
-
 	li {
 		/* Every li has a view-transition-name set via the style attribute */
-	}
-
-	li img {
-		view-transition-class: cover;
 	}
 
 	::view-transition-group(*) {
@@ -35,6 +22,18 @@
 	}
 	::view-transition-new(*) {
 		animation: none;
+	}
+
+	/* Nested View Transition Groups */
+	html:has(#nested:checked) {
+		ul {
+			view-transition-name: albums-wrapper;
+			view-transition-group: contain;
+		}
+
+		&::view-transition-group(albums-wrapper) {
+			overflow: clip;
+		}
 	}
 
 }
