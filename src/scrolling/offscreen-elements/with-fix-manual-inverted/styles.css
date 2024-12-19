@@ -1,0 +1,21 @@
+@layer view-transitions {
+	@view-transition {
+		navigation: auto;
+	}
+
+	h1 {
+		--view-transition-name: title;
+	}
+
+	@keyframes disallow-vt-name-when-outside-viewport {
+		from, to { view-transition-name: none; }
+	}
+	[data-view-transition-name] {
+		view-transition-name: var(--view-transition-name);
+
+		animation-name: disallow-vt-name-when-outside-viewport, disallow-vt-name-when-outside-viewport;
+		animation-timeline: view();
+		animation-range: cover 0% cover calc(0% + 1px), cover calc(100% - 1px) cover 100%;
+		animation-fill-mode: backwards, forwards;
+	}
+}

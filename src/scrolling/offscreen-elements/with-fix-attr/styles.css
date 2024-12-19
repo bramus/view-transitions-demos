@@ -1,0 +1,14 @@
+@layer view-transitions {
+	@view-transition {
+		navigation: auto;
+	}
+
+	@keyframes allow-vt-name-when-in-viewport {
+		from, to { view-transition-name: attr(data-view-transition-name type(<custom-ident>)); }
+	}
+	[data-view-transition-name] {
+		view-transition-name: none;
+		animation-name: allow-vt-name-when-in-viewport;
+		animation-timeline: view();
+	}
+}

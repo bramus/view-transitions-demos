@@ -1,0 +1,92 @@
+@layer reset, base, warning, view-transitions;
+
+@layer view-transitions {
+	::view-transition-group(*) {
+		animation-duration: 1s;
+		outline: 5px solid hotpink;
+	}
+}
+
+@layer reset {
+
+}
+
+@layer base {
+
+}
+
+@layer demo {
+	body {
+		> h1 {
+			padding: 10vh 0;
+		}
+
+		> p {
+			padding: 20vh 0;
+		}
+
+		h1 {
+			background: #ccc;
+			&:not(:has(a)) {
+				position: relative;
+				left: 5vh;
+			}
+		}
+	}
+}
+
+@layer warning {
+	.warnings {
+		position: fixed;
+		bottom: 1em;
+		left: 1em;
+		right: 1em;
+		view-transition-name: warnings; /* Don’t transition this with the rest of the stuff */
+	}
+
+	.warning {
+		padding: 1em;
+		margin: 1em 0;
+		border: 1px solid #ccc;
+		background: rgba(255 255 205 / 0.8);
+		text-align: center;
+	}
+
+	.warning > :first-child {
+		margin-top: 0;
+	}
+
+	.warning > :last-child {
+		margin-bottom: 0;
+	}
+
+	.warning a {
+		color: blue;
+	}
+	.warning--info {
+		border: 1px solid #123456;
+		background: rgb(205 230 255 / 0.8);
+	}
+	.warning--alarm {
+		border: 1px solid red;
+		background: #ff000010;
+	}
+
+	@supports (view-transition-name: auto) {
+		.warnings:has(.warning[data-reason="auto-view-transition-name"]) {
+			view-transition-name: none;
+		}
+		.warning[data-reason="auto-view-transition-name"] {
+			display: none;
+		}
+	}
+
+	@supports (x: attr(x type(<custom-ident>))) {
+		.warnings:has(.warning[data-reason="advanced-attr"]) {
+			view-transition-name: none;
+		}
+		.warning[data-reason="advanced-attr"] {
+			display: none;
+		}
+	}
+}

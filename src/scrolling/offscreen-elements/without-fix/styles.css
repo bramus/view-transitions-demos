@@ -1,0 +1,9 @@
+@layer view-transitions {
+	@view-transition {
+		navigation: auto;
+	}
+
+	h1 {
+		view-transition-name: title;
+	}
+}
