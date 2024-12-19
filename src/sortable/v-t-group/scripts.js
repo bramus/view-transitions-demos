@@ -28,3 +28,8 @@ document.querySelector('button').addEventListener('click', (e) => {
 		shuffleElements($container);
 	});
 });
+
+// Disable checkbox if no support
+if (!CSS.supports('view-transition-group: contain')) {
+	document.querySelector('#nested').setAttribute('disabled', '');
+}

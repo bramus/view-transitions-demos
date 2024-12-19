@@ -102,6 +102,15 @@
 	label {
 		display: block;
 		width: fit-content;
+
+		&:has(input[disabled]) {
+			text-decoration: line-through;
+
+			&::after {
+				content: ' (Not Available)';
+				font-style: italic;
+			}
+		}
 	}
 }
 
