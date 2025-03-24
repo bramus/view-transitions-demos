@@ -76,11 +76,12 @@
 			}
 
 			h2 {
-				margin-top: 4rem;
+				margin-top: 7rem;
 				text-decoration-color: hsl(156deg 100% 50% / 50%);
 			}
 
 			h3 {
+				margin-top: 3rem;
 				text-decoration-color: hsla(75, 100%, 50%, 0.5);
 			}
 
@@ -94,6 +95,14 @@
 				text-align: center;
 				font-style: italic;
 				font-size: 0.8em;
+			}
+
+			code {
+				font-family: 'Courier New', Courier, monospace;
+				padding: 0.1em 0.2em;
+				background: rgb(0 0 0 / 0.05);
+				border-radius: 0.25rem;
+				border: 1px solid rgb(0 0 0 / 0.2);
 			}
 
 			/* DL GRID @src https://codepen.io/bramus/pen/POEaXg*/
@@ -145,6 +154,13 @@
 		<h1>View Transitions</h1>
 
 		<p>A collection of demos to show off <a href="https://developer.chrome.com/docs/web-platform/view-transitions/">View Transitions</a>. <em>Built by <a href="https://www.bram.us/">Bramus</a>, Chrome DevRel at Google.</em></p>
+
+		<h2>View Transitions?</h2>
+
+		<p>With View Transitions you can have smooth transitions between two states of your website. These two states can be smaller things, such as two items that swap places, or full layout changes.</p>
+		<p>The trigger for the state change can be done through script – by calling <code>document.startViewTransition()</code> – or by navigating from one page to another.</p>
+		<p>The View Transition API takes care of many things for you, and you get to customize the animations using CSS animations or Web Animations.</p>
+		<p>If you are new to the subject, check out <a href="https://www.bram.us/2024/11/17/supercharge-web-ux-with-view-transitions-react-brussels/#recording">this 30-min talk</a> to get up to speed.</p>
 
 		<h2>Browser Support</h2>
 
@@ -249,7 +265,7 @@
 		</ul>
 
 		<footer>
-			<p>Built by <a href="https://www.bram.us/">Bramus</a>, Chrome Developer Relations Engineer at Google.<br>Source Code available on <a href="https://github.com/bramus/view-transitions-demos">GitHub</a> – <a href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a><br>Last update: 2024.12.16</p>
+			<p>Built by <a href="https://www.bram.us/">Bramus</a>, Chrome Developer Relations Engineer at Google.<br>Source Code available on <a href="https://github.com/bramus/view-transitions-demos">GitHub</a> – <a href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a><br>Last update: 2025.03.24</p>
 		</footer>
 	</main>
 </body>
