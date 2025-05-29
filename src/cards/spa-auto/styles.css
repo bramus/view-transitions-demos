@@ -22,7 +22,7 @@
 				display: none;
 			}
 
-			@supports (view-transition-name: auto) {
+			@supports (view-transition-name: match-element) {
 				.warning[data-reason="auto-view-transition-name"] {
 					display: none;
 				}
@@ -37,7 +37,7 @@
 				}
 
 				.card {
-					view-transition-name: auto;
+					view-transition-name: match-element;
 					view-transition-class: card;
 				}
 
