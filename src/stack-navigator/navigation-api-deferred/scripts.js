@@ -3,6 +3,8 @@
 const basePath = '/stack-navigator/navigation-api-deferred';
 
 // Make sure browser has support
+const hasNavigationAPIPrecommitHandlerSupport = ("NavigationPrecommitController" in window);
+
 document.addEventListener("DOMContentLoaded", (e) => {
 	let shouldThrow = false;
 
@@ -11,9 +13,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
 		shouldThrow = true;
 	}
 
-	if ((NavigateEvent.prototype.commit == undefined)) {
+	if (!hasNavigationAPIPrecommitHandlerSupport) {
 		document.querySelector('.warning[data-reason="navigation-api-deferred-commit"]').style.display = "block";
-		shouldThrow = false;
+		shouldThrow = true;
 	}
 
 	if (shouldThrow) {
@@ -27,7 +29,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 //
 // If there is no previous navigation entry to go to
 // (e.g. user went directly to detail), then redirect to index.html
-document.addEventListener('click', (e) => {
+hasNavigationAPIPrecommitHandlerSupport && document.addEventListener('click', (e) => {
 	if (e.target.matches('a.back')) {
 		e.preventDefault();
 
@@ -39,8 +41,12 @@ document.addEventListener('click', (e) => {
 	}
 });
 
+// The transition
+// Because we need access in both commit and precommitHandler, this needs to be global.
+let t = null;
+
 // Turn our MPA into an SPA … WOOHOOW!
-navigation.addEventListener("navigate", (e) => {
+hasNavigationAPIPrecommitHandlerSupport && navigation.addEventListener("navigate", (e) => {
 	// Don’t intercept when we shouldn’t
 	if (shouldNotIntercept(e)) {
 		return;
@@ -57,10 +63,7 @@ navigation.addEventListener("navigate", (e) => {
 		// Because of that we can safely disable scroll restoration alltogether
 		scroll: 'manual',
 
-		// Prevent race conditions on slow networks
-		commit: "after-transition",
-
-		handler: async () => {
+		precommitHandler: async () => {
 			// @TODO: show loading while fetch is running …
 
 			// @TODO: Maybe I should move this whole fetch logic to the outside of e.intercept?
@@ -89,10 +92,14 @@ navigation.addEventListener("navigate", (e) => {
 			document.documentElement.dataset.transition = transitionClass;
 
 			// Update the DOM … with a View Transition
-			const t = document.startViewTransition(() => {
+			t = document.startViewTransition(() => {
 				document.title = $title.innerText;
 				document.body.replaceWith($body); // You do trust your own markup, right?
 			});
+		},
+
+		handler: async () => {
+			if (!t) return;
 
 			// Manual Scroll Restoration: Restore scrollOffset on new View (but only for certain views)
 			await t.updateCallbackDone;
@@ -170,7 +177,7 @@ const isUAForwardButton = (oldNavigationEntry, newNavigationEntry) => {
 
 // Do a reload View Transition when pressing UA reload
 const navigationEntry = window.performance.getEntriesByType("navigation")[0];
-if (navigationEntry.type === "reload" && document.startViewTransition) {
+if (hasNavigationAPIPrecommitHandlerSupport && navigationEntry.type === "reload" && document.startViewTransition) {
 	(async () => {
 		document.documentElement.dataset.transition = "reload";
 
