@@ -68,7 +68,7 @@
 		}
 
 		::view-transition-new(targeted-card):only-child {
-			animation: animate-in ease-in 0.25s;
+			animation: animate-in ease-in 0.25s forwards;
 		}
 	}
 
@@ -86,7 +86,7 @@
 		}
 
 		::view-transition-old(targeted-card):only-child {
-			animation: animate-out ease-out 0.5s;
+			animation: animate-out ease-out 0.5s forwards;
 		}
 	}
 
