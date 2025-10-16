@@ -123,20 +123,24 @@ function transitionHelper({
 		};
 	}
 
-	if (skipTransition || !document.startViewTransition) {
-		return unsupported('View Transitions are not supported in this browser');
+	if (skipTransition) {
+		return unsupported('skipTransition was set to true');
 	}
 
-	try {
-		const transition = document.startViewTransition({
-			update,
-			types,
-		});
+	if (!document.startViewTransition) {
+		return unsupported('Same-Document View Transitions are not supported in this browser');
+	}
 
-		return transition;
-	} catch (e) {
+	if (!ViewTransition || !("types" in ViewTransition.prototype)) {
 		return unsupported('View Transitions with types are not supported in this browser');
 	}
+
+	const transition = document.startViewTransition({
+		update,
+		types,
+	});
+
+	return transition;
 }
 
 export { clamp, createElement, generatePagination, transitionHelper };
