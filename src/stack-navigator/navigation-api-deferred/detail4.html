@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Messages: Detail 2</title>
+	<title>Messages: Detail 4</title>
 	<link rel="stylesheet" href="../shared/styles.css">
 	<script src="scripts.js"></script>
 </head>
@@ -21,7 +21,7 @@
 					</div>
 				</header>
 				<div class="content">
-					Like really amazing. You decorate selected elements with a view-transition-name and then trigger the View Transition to go to the new view of your site.
+					View Transitions can run on the same document, which is typically used in an SPA architecure. A transition can also happen between two different documents. People like to call that architecture MPA.
 				</div>
 				<div class="meta">
 					6:49pm - 5 Dec 2023
@@ -31,6 +31,17 @@
 					<li><b>270</b> likes</li>
 				</ul>
 			</div>
+			<ul class="messages">
+				<li>
+					<a href="detail5.html">
+						<img src="../shared/avatar.jpg" alt="Avatar of Bramus" width="100" height="100">
+						<div>
+							<div class="author">Bramus</div>
+							<div class="content">MPAs … also known as “websites” 😆</div>
+						</div>
+					</a>
+				</li>
+			</ul>
 		</div>
 	</div>
 	<div class="warnings">
@@ -42,6 +53,9 @@
 		</div>
 		<div class="warning" data-reason="navigation-api">
 			<p>⚠️ For this demo to work your browser needs to support the Navigation API, which is not the case. As a result you won’t get to see a transition or only a partially working transition.</p>
+		</div>
+		<div class="warning" data-reason="navigation-api-deferred-commit">
+			<p>⚠️ For this demo to work your browser needs to support <code>precommitHandler</code> on the Navigation API. As a result you won’t get to see a transition. Try Chrome 141 or newer.</p>
 		</div>
 	</div>
 </body>

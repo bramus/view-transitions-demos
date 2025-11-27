@@ -4,8 +4,9 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Messages: Detail 2</title>
+	<title>Messages: Detail 3</title>
 	<link rel="stylesheet" href="../shared/styles.css">
+	<link rel="stylesheet" href="mpa.css">
 	<script src="scripts.js"></script>
 </head>
 <body>
@@ -21,7 +22,7 @@
 					</div>
 				</header>
 				<div class="content">
-					Like really amazing. You decorate selected elements with a view-transition-name and then trigger the View Transition to go to the new view of your site.
+					From thereon out it all happens automatically: the browser captures snapshots of the old and new state, and then transitions the snapshot pairs from their old snapshot to their new one.
 				</div>
 				<div class="meta">
 					6:49pm - 5 Dec 2023
@@ -37,11 +38,11 @@
 		<div class="warning warning--info" data-reason="prefers-reduced-motion">
 			<p>ℹ️ You have <code>prefers-reduced-motion: reduce</code> enabled. As a result you won’t get to see a transition.</p>
 		</div>
-		<div class="warning" data-reason="same-document-view-transitions">
-			<p>⚠️ For this demo to work your browser needs to support Same-Document View Transitions, which is not the case. As a result you won’t get to see a transition.</p>
+		<div class="warning" data-reason="cross-document-view-transitions">
+			<p>⚠️ For this demo to work your browser needs to support Cross-Document View Transitions, which is not the case. As a result you won’t get to see a transition.</p>
 		</div>
-		<div class="warning" data-reason="navigation-api">
-			<p>⚠️ For this demo to work your browser needs to support the Navigation API, which is not the case. As a result you won’t get to see a transition or only a partially working transition.</p>
+		<div class="warning warning--info" data-reason="navigation-api">
+			<p>⚠️ Your browser does not support the Navigation API. A workaround using <code>localStorage</code> is used to pass the <code>transitionType</code> from one page to the other.</p>
 		</div>
 	</div>
 </body>
