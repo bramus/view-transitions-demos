@@ -172,11 +172,11 @@
 			<dt>Cross-Document View Transitions</dt>
 			<dd><ul><li>Chrome 126+</li><li>Safari 18.2+</li></ul></dd>
 			<dt>View Transition Types</dt>
-			<dd><ul><li>Chrome 125+</li><li>Safari 18.2+</li></ul></dd>
+			<dd><ul><li>Chrome 125+</li><li>Safari 18.2+</li><li>Firefox 147+</li></ul></dd>
 			<dt>View Transition Classes</dt>
 			<dd><ul><li>Chrome 125+</li><li>Safari 18.2+</li><li>Firefox 144+</li></ul></dd>
 			<dt>Navigation API</dt>
-			<dd><ul><li>Chrome 102+</li><li>Safari Technology Preview with flags</li></ul></dd>
+			<dd><ul><li>Chrome 102+</li><li>Safari Technology Preview with flags</li><li>Firefox 147+</li></ul></dd>
 			<dt>Navigation API Precommit Handler</dt>
 			<dd><ul><li>Chrome 141+</li></ul></dd>
 			<dt>Auto View Transition Naming with <code>match-element</code></dt>
@@ -197,11 +197,11 @@
 
 		<ul>
 			<li><a href="/pagination/spa/">SPA</a> <em>(Chrome 111+, Safari 18+, Firefox 144+)</em></li>
-			<li><a href="/pagination/spa-types/">SPA + Types</a> <em>(Chrome 125+, Safari 18.2+)</em></li>
-			<li><a href="/pagination/spa-types-with-helper/">SPA + Types using <code>transitionHelper</code></a> <em>(Chrome 125+, Safari 18.2+)</em></li>
-			<li><a href="/pagination/navigation-api/">Navigation API (+ Types)</a> <em>(Chrome 111+, Safari TP with flags)</em></li>
+			<li><a href="/pagination/spa-types/">SPA + Types</a> <em>(Chrome 125+, Safari 18.2+, Firefox 147+)</em></li>
+			<li><a href="/pagination/spa-types-with-helper/">SPA + Types using <code>transitionHelper</code></a> <em>(Chrome 125+, Safari 18.2+, Firefox 147+)</em></li>
+			<li><a href="/pagination/navigation-api/">Navigation API (+ Types)</a> <em>(Chrome 111+, Safari TP with flags, Firefox 147+)</em></li>
 			<li><a href="/pagination/mpa/">MPA</a> <em>(Chrome 126+, Safari 18.2+)</em></li>
-			<li><a href="/pagination/mpa-or-navigation-api/">MPA + Navigation API <em>upgrade</em></a> <em>(Chrome 111+, Safari TP)</em></li>
+			<li><a href="/pagination/mpa-or-navigation-api/">Navigation API or MPA</a> <em>(Chrome 111+, Safari TP, Firefox 147+)</em></li>
 		</ul>
 
 		<h3>Stack Navigator</h3>
@@ -210,7 +210,7 @@
 
 		<ul>
 			<li><a href="/stack-navigator/spa/">SPA</a> <em>(Chrome 111+, Safari 18+, Firefox 144+)</em></li>
-			<li><a href="/stack-navigator/navigation-api/">Navigation API</a> <em>(Chrome 111+, Safari TP with flags)</em></li>
+			<li><a href="/stack-navigator/navigation-api/">Navigation API</a> <em>(Chrome 111+, Safari TP with flags, Firefox 147+)</em></li>
 			<li><a href="/stack-navigator/navigation-api-deferred/">Navigation API (+ Precommit Handler)</a> <em>(Chrome 141+)</em></li>
 			<li><a href="/stack-navigator/mpa/">MPA</a> <em>(Chrome 126+, Safari 18.2+)</em></li>
 			<li><a href="/stack-navigator/mpa-prerender/">MPA (with Prerender)</a> <em>(Chrome 126+, Safari 18.2+ (without prerendering))</em></li>
@@ -221,7 +221,7 @@
 		<p>List of profiles, with overview - detail navigation</p>
 
 		<ul>
-			<li><a href="/profiles/mpa/">MPA + Navigation API</a> <em>(Chrome 126+)</em></li>
+			<li><a href="/profiles/mpa/">MPA</a> <em>(Chrome 126+, Safari 18.2+)</em></li>
 		</ul>
 
 		<h3>Cards</h3>
@@ -247,7 +247,7 @@
 
 		<ul>
 			<li><a href="/circle/spa/">SPA</a> <em>(Chrome 111+, Safari 18+, Firefox 144+)</em></li>
-			<li><a href="/circle/mpa/">MPA + Navigation API</a>: Transfer the state using <code>pageswap</code> and <code>pagereveal</code> + add render blocking to make sure the <code>#startingPointMarker</code> element is present in the DOM <em>(Chrome 126+, Safari TP with flags)</em></li>
+			<li><a href="/circle/mpa/">MPA</a>: Transfer the state using <code>pageswap</code> and <code>pagereveal</code> + add render blocking to make sure the <code>#startingPointMarker</code> element is present in the DOM <em>(Chrome 126+, Safari TP with flags)</em></li>
 		</ul>
 
 		<h3>Off the Beaten Path</h3>
@@ -255,7 +255,7 @@
 		<p>A more complex demo with multiple elements animating in sequence</p>
 
 		<ul>
-			<li><a href="/off-the-beaten-path/spa/">SPA + Types</a> <em>(Chrome 125+, Safari 18.2+)</em></li>
+			<li><a href="/off-the-beaten-path/spa/">SPA + Types</a> <em>(Chrome 125+, Safari 18.2+, Firefox 147+)</em></li>
 			<li><a href="/off-the-beaten-path/mpa/">MPA + Navigation API</a> leveraging <code>pageswap</code> and <code>pagereveal</code> to transfer state between pages <em>(Chrome 126+, Safari TP with flags)</em></li>
 		</ul>
 
@@ -268,7 +268,7 @@
 		</ul>
 
 		<footer>
-			<p>Built by <a href="https://www.bram.us/">Bramus</a>, Chrome Developer Relations Engineer at Google.<br>Source Code available on <a href="https://github.com/bramus/view-transitions-demos">GitHub</a> – <a href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a><br>Last update: 2025.11.27</p>
+			<p>Built by <a href="https://www.bram.us/">Bramus</a>, Chrome Developer Relations Engineer at Google.<br>Source Code available on <a href="https://github.com/bramus/view-transitions-demos">GitHub</a> – <a href="https://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a><br>Last update: 2026.01.13</p>
 		</footer>
 	</main>
 </body>
