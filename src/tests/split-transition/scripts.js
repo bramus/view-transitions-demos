@@ -90,7 +90,6 @@ hasNavigationAPIPrecommitHandlerSupport && navigation.addEventListener("navigate
 				title: $title.innerText,
 				$body,
 			};
-			console.log(pageData);
 		},
 
 		handler: async () => {
