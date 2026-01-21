@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MPA Transfer State</title>
+	<link rel="stylesheet" href="/video/shared/styles.css">
+	<script src="scripts.js"></script>
+</head>
+<body>
+	<p>Instructions: hit play in the video player if it’s not playing yet, then hit the link below.</p>
+	<p><a href="/video/mpa-wait-for-video/detail.html">Make it bigger</a></p>
+	<video src="/video/shared/ForBiggerJoyrides.mp4" width="320" height="176" controls playsinline loop></video>
+	<div class="warnings">
+		<div class="warning warning--info" data-reason="prefers-reduced-motion">
+			<p>ℹ️ You have <code>prefers-reduced-motion: reduce</code> enabled. As a result you won’t get to see a transition.</p>
+		</div>
+		<div class="warning" data-reason="cross-document-view-transitions">
+			<p>⚠️ For this demo to work your browser needs to support Cross-Document View Transitions, which is not the case. As a result you won’t get to see a transition.</p>
+		</div>
+	</div>
+</body>
+</html>
