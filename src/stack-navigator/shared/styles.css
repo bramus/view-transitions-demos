@@ -160,6 +160,12 @@ body {
 		a {
 			user-select: none;
 		}
+		* {
+			cursor: url(/stack-navigator/shared/cursor.svg) 16 16, auto !important;
+		}
+		*:active {
+			cursor: url(/stack-navigator/shared/cursor-active.svg) 16 16, auto !important;
+		}
 	}
 
 	@layer views {
