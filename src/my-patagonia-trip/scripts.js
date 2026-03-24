@@ -16,6 +16,26 @@ const saveState = (state) => {
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
 };
 
+const THEME_STORAGE_KEY = 'my-patagonia-trip-theme';
+
+const loadTheme = () => {
+	return localStorage.getItem(THEME_STORAGE_KEY) || 'system';
+};
+
+const saveTheme = (theme) => {
+	localStorage.setItem(THEME_STORAGE_KEY, theme);
+};
+
+const applyTheme = (theme) => {
+	if (theme === 'light' || theme === 'dark') {
+		document.documentElement.style.colorScheme = theme;
+	} else {
+		document.documentElement.style.colorScheme = 'light dark';
+	}
+	const $input = document.querySelector(`input[name="theme-toggle"][value="${theme}"]`);
+	if ($input) $input.checked = true;
+};
+
 // Filter
 const applyFilter = ({ season = null, type = null }) => {
 	const $entries = document.querySelector('#entries');
@@ -205,8 +225,26 @@ document.querySelectorAll('.entry button').forEach($button => {
 	});
 });
 
+// Theme Toggle
+document.querySelectorAll('input[name="theme-toggle"]').forEach($input => {
+	$input.addEventListener('change', (e) => {
+		const theme = e.target.value;
+		saveTheme(theme);
+		if ("startViewTransition" in document) {
+			document.startViewTransition(() => {
+				applyTheme(theme);
+			});
+		} else {
+			applyTheme(theme);
+		}
+	});
+});
+
 // Restore State
 (async () => {
+	const theme = loadTheme();
+	applyTheme(theme);
+
 	const state = loadState();
 	selectedSeason = state.season;
 	selectedType = state.type;
