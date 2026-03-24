@@ -247,6 +247,20 @@ document.querySelectorAll('input[name="theme-toggle"]').forEach($input => {
 	});
 });
 
+// Mobile Toggles
+document.getElementById('nav-toggle').addEventListener('click', () => {
+	document.getElementById('main-nav').classList.add('open');
+});
+document.getElementById('nav-close').addEventListener('click', () => {
+	document.getElementById('main-nav').classList.remove('open');
+});
+document.getElementById('sidebar-toggle').addEventListener('click', () => {
+	document.getElementById('sidebar').classList.add('open');
+});
+document.getElementById('sidebar-close').addEventListener('click', () => {
+	document.getElementById('sidebar').classList.remove('open');
+});
+
 // Restore State
 (async () => {
 	const theme = loadTheme();
