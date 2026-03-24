@@ -238,8 +238,9 @@ document.querySelectorAll('input[name="theme-toggle"]').forEach($input => {
 		const theme = e.target.value;
 		saveTheme(theme);
 		if ("startViewTransition" in document) {
-			document.startViewTransition(() => {
-				applyTheme(theme);
+			document.startViewTransition({
+				update: () => applyTheme(theme),
+				types: ['theme-toggle']
 			});
 		} else {
 			applyTheme(theme);

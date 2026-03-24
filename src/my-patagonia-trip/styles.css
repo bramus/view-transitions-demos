@@ -29,6 +29,9 @@
 }
 
 @layer viewtransitions {
+	html:active-view-transition-type(theme-toggle) * {
+		view-transition-name: none !important;
+	}
 	:root {
 		view-transition-name: none;
 	}
@@ -391,7 +394,7 @@
 			grid-template-columns: auto min(30rem, 30vw);
 			grid-template-rows: 5rem auto;
 			grid-template-areas:
-				"header fill"
+				"header header"
 				"main aside";
 		}
 	}
@@ -449,14 +452,18 @@
 
 		nav {
 			flex: 1;
-			max-width: 50em;
-			margin: 0 auto;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 2rem;
 		}
 
 		nav > ul {
 			display: flex;
 			flex-direction: row;
-			justify-content: space-around;
+			justify-content: center;
+			flex: 1;
+			gap: 2rem;
 
 			a {
 				color: var(--header-link);
@@ -599,6 +606,10 @@
 		
 		#header #main-nav > ul a {
 			font-size: 1.25rem;
+		}
+
+		#header #main-nav .theme-toggle {
+			margin-top: auto;
 		}
 
 		#sidebar {
