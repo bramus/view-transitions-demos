@@ -143,6 +143,12 @@
 				background: var(--brand-btn-hover-bg);
 				color: var(--brand-btn-hover-text);
 			}
+
+			&:disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+				pointer-events: none;
+			}
 		}
 
 		.entry {
@@ -248,6 +254,21 @@
 				img {
 					height: 100%;
 					width: auto;
+				}
+
+				button.delete-btn {
+					margin-left: auto;
+					width: 24px !important;
+					height: 24px !important;
+					padding: 0 !important;
+					background: transparent !important;
+					color: inherit;
+					opacity: 0.5;
+				}
+
+				button.delete-btn:hover, button.delete-btn:focus-visible {
+					color: red;
+					opacity: 1;
 				}
 			}
 		}

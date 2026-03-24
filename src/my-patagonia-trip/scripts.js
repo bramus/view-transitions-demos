@@ -19,8 +19,16 @@ const loadState = () => {
 	return { season: null, type: null, entries: [] };
 };
 
+const updateShareButton = (state) => {
+	const $shareBtn = document.querySelector('#sidebar footer button');
+	if ($shareBtn && state.entries) {
+		$shareBtn.disabled = state.entries.length === 0;
+	}
+};
+
 const saveState = (state) => {
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+	updateShareButton(state);
 };
 
 const THEME_STORAGE_KEY = 'my-patagonia-trip-theme';
@@ -159,6 +167,27 @@ document.querySelector('select[name=types]').addEventListener('change', async (e
 	}
 });
 
+const createDeleteButton = (id) => {
+	const $btn = document.createElement('button');
+	$btn.type = 'button';
+	$btn.className = 'delete-btn btn-icon';
+	$btn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+	$btn.setAttribute('aria-label', 'Remove');
+	$btn.addEventListener('click', (e) => {
+		e.stopPropagation();
+		const $entry = document.getElementById(id);
+		if ($entry) {
+			$entry.querySelector('button').click();
+		} else {
+			const state = loadState();
+			state.entries = state.entries.filter(eId => eId !== id);
+			saveState(state);
+			e.target.closest('li').remove();
+		}
+	});
+	return $btn;
+};
+
 // Selection
 document.querySelectorAll('.entry button').forEach($button => {
 	$button.addEventListener('click', (e) => {
@@ -220,6 +249,7 @@ document.querySelectorAll('.entry button').forEach($button => {
 
 			$selectedEntry.appendChild($selectedEntryImage);
 			$selectedEntry.appendChild($selectedEntryTitle);
+			$selectedEntry.appendChild(createDeleteButton(id));
 
 			if ("startViewTransition" in Element.prototype) {
 				document.querySelector('#sidebar').startViewTransition(() => {
@@ -307,8 +337,10 @@ document.getElementById('sidebar-close').addEventListener('click', () => {
 
 			$selectedEntry.appendChild($selectedEntryImage);
 			$selectedEntry.appendChild($selectedEntryTitle);
+			$selectedEntry.appendChild(createDeleteButton(id));
 
 			document.querySelector('#selected').appendChild($selectedEntry);
 		}
 	});
+	updateShareButton(state);
 })();
