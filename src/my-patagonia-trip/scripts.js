@@ -2,6 +2,20 @@ const randomBetween = (min, max) => {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+const LOCAL_STORAGE_KEY = 'my-patagonia-trip-state';
+
+const loadState = () => {
+	try {
+		const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+		if (raw) return JSON.parse(raw);
+	} catch (e) { }
+	return { season: null, type: null, entries: [] };
+};
+
+const saveState = (state) => {
+	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+};
+
 // Filter
 const applyFilter = ({ season = null, type = null }) => {
 	const $entries = document.querySelector('#entries');
@@ -64,6 +78,9 @@ let selectedType = null;
 
 document.querySelector('select[name=seasons]').addEventListener('change', async (e) => {
 	selectedSeason = e.target.value || null;
+	const state = loadState();
+	state.season = selectedSeason;
+	saveState(state);
 
 	const $list = document.querySelector('#entries');
 	const $sidebar = document.querySelector('#sidebar');
@@ -100,6 +117,9 @@ document.querySelector('select[name=seasons]').addEventListener('change', async 
 
 document.querySelector('select[name=types]').addEventListener('change', async (e) => {
 	selectedType = e.target.value || null;
+	const state = loadState();
+	state.type = selectedType;
+	saveState(state);
 
 	const $list = document.querySelector('#entries');
 
@@ -121,6 +141,10 @@ document.querySelectorAll('.entry button').forEach($button => {
 		const id = $entry.getAttribute('id');
 
 		if ($entry.classList.contains('checked')) {
+			const state = loadState();
+			state.entries = state.entries.filter(eId => eId !== id);
+			saveState(state);
+
 			// Toggle the checked state of the entry itself
 			if ("startViewTransition" in Element.prototype) {
 				$entry.startViewTransition(() => {
@@ -140,6 +164,12 @@ document.querySelectorAll('.entry button').forEach($button => {
 				$selectedEntry?.remove();
 			}
 		} else {
+			const state = loadState();
+			if (!state.entries.includes(id)) {
+				state.entries.push(id);
+			}
+			saveState(state);
+
 			// Toggle the checked state of the entry itself
 			if ("startViewTransition" in Element.prototype) {
 				$entry.startViewTransition(() => {
@@ -174,3 +204,51 @@ document.querySelectorAll('.entry button').forEach($button => {
 		}
 	});
 });
+
+// Restore State
+(async () => {
+	const state = loadState();
+	selectedSeason = state.season;
+	selectedType = state.type;
+
+	if (selectedSeason) {
+		const $seasonSelect = document.querySelector('select[name=seasons]');
+		if ($seasonSelect) $seasonSelect.value = selectedSeason;
+	}
+	if (selectedType) {
+		const $typeSelect = document.querySelector('select[name=types]');
+		if ($typeSelect) $typeSelect.value = selectedType;
+	}
+
+	applyFilter({ season: selectedSeason, type: selectedType });
+
+	if (selectedSeason) {
+		setWeatherData({ low: 'Loading…', high: 'Loading…' });
+		const weatherData = await fetchWeatherData(selectedSeason);
+		setWeatherData(weatherData);
+	}
+
+	state.entries.forEach(id => {
+		const $entry = document.getElementById(id);
+		if ($entry) {
+			$entry.classList.add('checked');
+			const { title, photo } = $entry.dataset;
+			
+			const $selectedEntry = document.createElement('li');
+			$selectedEntry.dataset.for = id;
+
+			const $selectedEntryImage = document.createElement('img');
+			$selectedEntryImage.src = photo;
+			$selectedEntryImage.width = 400;
+			$selectedEntryImage.height = 200;
+
+			const $selectedEntryTitle = document.createElement('span');
+			$selectedEntryTitle.innerText = title;
+
+			$selectedEntry.appendChild($selectedEntryImage);
+			$selectedEntry.appendChild($selectedEntryTitle);
+
+			document.querySelector('#selected').appendChild($selectedEntry);
+		}
+	});
+})();
