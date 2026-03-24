@@ -279,14 +279,20 @@ document.querySelectorAll('input[name="theme-toggle"]').forEach($input => {
 });
 
 // Mobile Toggles
+let mobileZIndex = 1000;
+
 document.getElementById('nav-toggle').addEventListener('click', () => {
-	document.getElementById('main-nav').classList.add('open');
+	const $nav = document.getElementById('main-nav');
+	$nav.style.setProperty('z-index', ++mobileZIndex, 'important');
+	$nav.classList.add('open');
 });
 document.getElementById('nav-close').addEventListener('click', () => {
 	document.getElementById('main-nav').classList.remove('open');
 });
 document.getElementById('sidebar-toggle').addEventListener('click', () => {
-	document.getElementById('sidebar').classList.add('open');
+	const $sidebar = document.getElementById('sidebar');
+	$sidebar.style.setProperty('z-index', ++mobileZIndex, 'important');
+	$sidebar.classList.add('open');
 });
 document.getElementById('sidebar-close').addEventListener('click', () => {
 	document.getElementById('sidebar').classList.remove('open');
