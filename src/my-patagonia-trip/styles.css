@@ -1,0 +1,489 @@
+@layer reset, base, layout, components, components.select, viewtransitions;
+
+@keyframes scale-up {
+	from {
+		opacity: 0;
+		scale: 0.5;
+	}
+}
+
+@keyframes scale-down {
+	to {
+		opacity: 0;
+		scale: 0.5;
+	}
+}
+
+@keyframes slide-up {
+	to {
+		translate: 0 -100%;
+		opacity: 0;
+	}
+}
+
+@keyframes slide-down {
+	from {
+		translate: 0 -100%;
+		opacity: 0;
+	}
+}
+
+@layer viewtransitions {
+	:root {
+		view-transition-name: none;
+	}
+
+	::view-transition-group(*) {
+		animation-duration: 500ms;
+	}
+
+	/* Track all entries */
+	.entry {
+		view-transition-name: match-element;
+		view-transition-class: entry;
+	}
+
+	/* Animations to use when filtering. */
+	.entries::view-transition-new(.entry):not(:only-child) {
+		animation: none;
+	}
+	.entries::view-transition-old(.entry):not(:only-child) {
+		display: none;
+	}
+	.entries::view-transition-new(.entry):only-child {
+		animation-name: scale-up;
+	}
+	.entries::view-transition-old(.entry):only-child {
+		animation-name: scale-down;
+	}
+
+	/* Track the selection */
+	#selected {
+		li {
+			view-transition-name: match-element;
+			view-transition-class: selected;
+		}
+
+		&::view-transition-new(.selected):not(:only-child) {
+			animation: none;
+		}
+		&::view-transition-old(.selected):not(:only-child) {
+			display: none;
+		}
+		&::view-transition-new(.selected):only-child {
+			animation-name: scale-up;
+			transform-origin: 0 50%;
+		}
+		&::view-transition-old(.selected):only-child {
+			animation-name: scale-down;
+			transform-origin: 0 50%;
+		}
+	}
+
+	/* Don’t cross-fade the sidebar wrapper, but give the illusion that it grows */
+	#sidebar {
+		view-transition-name: sidebar;
+	}
+	::view-transition-new(sidebar) {
+		animation: none;
+		height: 100%;
+		width: 100%;
+	}
+	::view-transition-old(sidebar) {
+		display: none;
+	}
+
+	/* Capture the h1, footer and weather individually from the sidebar so that they don’t stretch with the sidebar’s texture */
+	#sidebar :is(footer, .weather, h1) {
+		view-transition-name: match-element;
+	}
+}
+
+
+@layer components {
+	@layer filter {
+		#entries[data-filter-season="winter"] > .entry:not([data-season~="winter"]),
+		#entries[data-filter-season="spring"] > .entry:not([data-season~="spring"]),
+		#entries[data-filter-season="summer"] > .entry:not([data-season~="summer"]),
+		#entries[data-filter-season="autumn"] > .entry:not([data-season~="autumn"]) {
+			display: none !important;
+		}
+
+		#entries[data-filter-type="adventurous"] > .entry:not([data-type~="adventurous"]),
+		#entries[data-filter-type="relaxing"] > .entry:not([data-type~="relaxing"]),
+		#entries[data-filter-type="nature"] > .entry:not([data-type~="nature"]),
+		#entries[data-filter-type="wildlife"] > .entry:not([data-type~="wildlife"]),
+		#entries[data-filter-type="sightseeing"] > .entry:not([data-type~="sightseeing"]) {
+			display: none !important;
+		}
+	}
+
+	@layer layout {
+		#entries {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr) );
+			gap: 1.5rem;
+		}
+
+		button:not(select > button) {
+			all: unset;
+			background: #10854b; /* Vibrant green */
+			color: white;
+			padding: 0.4rem 0.8rem;
+			border-radius: 9999px;
+			text-box: trim-both cap alphabetic;
+			cursor: pointer;
+
+			.checked &,
+			&:hover,
+			&:focus-visible {
+				background: #c4ff8d;
+				color: #095732;
+			}
+		}
+
+		.entry {
+			background: rgb(0 0 0 / 0.35);
+			border: 1px solid rgb(255 255 255 / 0.15);
+			filter: drop-shadow(1px 2px 8px rgb(0 0 0 / 0.35));
+			color: white;
+
+			&.checked {
+				background: #dadade;
+				color: #095732;
+				border-color: black;
+			}
+
+			border-radius: 1.35rem;
+
+			transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+
+			&:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+			}
+
+			display: grid;
+			grid-template-areas:
+				"header"
+				"image"
+				"location"
+				"title";
+
+			h2 {
+				grid-area: title;
+				padding: 1rem;
+				padding-top: 0;
+			}
+
+			img {
+				width: 100%;
+				height: auto;
+				grid-area: image;
+			}
+
+			p {
+				padding: 1rem;
+				padding-bottom: 0;
+				font-size: 0.75em;
+			}
+
+			button {
+				&::after {
+					content: " +";
+					font-weight: bold;
+				}
+
+				.checked &::after {
+					content: ' ✓';
+				}
+			}
+
+			header {
+				grid-area: header;
+
+				display: flex;
+				justify-content: space-between;
+				padding: 1em;
+
+				ul {
+					list-style: none;
+					display: flex;
+					flex-direction: row;
+					gap: 0.5em;
+
+					li {
+						background: rgba(255, 255, 255, 0.2);
+						padding: 0.2rem 0.6rem;
+						border-radius: 9999px;
+						font-size: 0.75rem;
+						color: white;
+						text-transform: capitalize;
+					}
+				}
+			}
+		}
+
+		#selected:empty::after {
+			content: "(no selected activities)";
+			font-style: italic;
+		}
+
+		#selected {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5em;
+
+			li {
+				height: 2rem;
+
+				display: flex;
+				flex-direction: row;
+				gap: 0.5rem;
+				align-items: center;
+
+				img {
+					height: 100%;
+					width: auto;
+				}
+			}
+		}
+
+		.weather ul {
+			list-style: none;
+			background: white;
+			padding: 0.8rem;
+			border-radius: 1rem;
+			color: #095732;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 1rem;
+			font-size: 0.9rem;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+		}
+	}
+
+	@layer select {
+		select,
+		select::picker(select) {
+			appearance: base-select;
+		}
+		
+		select {
+			color: white;
+			background: rgb(0 0 0 / 0.35);
+			backdrop-filter: blur(10px);
+			border-radius: 9999px;
+			padding: 0.5rem 1rem;
+			border: 1px solid rgba(0, 0, 0, 0.1);
+			cursor: pointer;
+
+			transition: 
+				background .2s ease,
+				color .2s ease,
+				border-color .2s ease
+			;
+		}
+
+		select:hover,
+		select:active,
+		select:focus-visible,
+		select:not(select:has(option[value=""]:checked)),
+		select:open {
+			background: white;
+			color: #333;
+		}
+
+		select:hover,
+		select:active,
+		select:focus-visible {
+			border-color: black;
+		}
+
+		select::picker(select) {
+			transform-origin: 50% 0%;
+			transition: 
+				opacity .2s ease,
+				transform .2s ease, 
+				display .2s allow-discrete, 
+				overlay .2s allow-discrete
+			;
+
+			opacity: 0;
+			transform: scale(0.9);
+		}
+
+		select:open::picker(select) {
+			opacity: 1;
+			transform: scale(1);
+
+			@starting-style {
+				opacity: 0;
+				transform: scale(0.9);
+			}
+		}
+
+		select button {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 0.5rem;
+			cursor: pointer;
+			font-family: inherit;
+		}
+
+		select::picker(select) {
+			background: white;
+			border-radius: 1rem;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+			padding: 0.5rem;
+			border: 1px solid rgba(0, 0, 0, 0.1);
+		}
+
+		select option {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0.5rem 1rem;
+			color: #333;
+			border-radius: 0.5rem;
+			cursor: pointer;
+			font-family: inherit;
+		}
+
+		select option:hover {
+			background: #f0f0f0;
+		}
+
+		select option::checkmark {
+			display: none;
+		}
+
+		select option::after {
+			content: "";
+			width: 1.2rem;
+			height: 1.2rem;
+			border-radius: 50%;
+			border: 2px solid #ccc;
+			display: inline-block;
+			transition: border-color 0.2s, background-color 0.2s;
+		}
+
+		select option:checked::after {
+			border-color: #10854b;
+			background: #10854b;
+			box-shadow: inset 0 0 0 3px white;
+		}
+	}
+}
+
+@layer layout {
+	body {
+		display: grid;
+		gap: 1.5rem;
+		grid-template-columns: auto min(30rem, 30vw);
+		grid-template-rows: 5rem auto;
+		grid-template-areas:
+			"header fill"
+			"main aside";
+		padding: 1rem;
+	}
+
+	#header {
+		grid-area: header;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+
+		align-items: center;
+
+		h1 {
+			text-transform: lowercase;
+			color: #c7fe8e;
+		}
+
+		nav {
+			flex: 1;
+			max-width: 50em;
+			margin: 0 auto;
+		}
+
+		nav > ul {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+
+			a {
+				color: white;
+				text-decoration: none;
+				text-transform: uppercase;
+			}
+		}
+	}
+
+	main {
+		grid-area: main;
+
+		h1 {
+			font-size: 1.25rem;
+			padding: 1.5rem 0;
+		}
+	}
+
+	#sidebar {
+		grid-area: aside;
+
+		background: #dadade;
+		color: #095732;
+		border-radius: 1.35rem;
+		padding: 1rem;
+		height: min-content;
+
+		position: sticky;
+		top: 1rem;
+
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	#filter {
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+	}
+}
+
+@layer base {
+	html {
+		background-color: #333;
+		color: white;
+
+		background:
+			linear-gradient(rgb(0 0 0 / 0.25), rgb(0 0 0 / 0.25)),
+			#333 url(https://picsum.photos/id/10/400/200?blur) no-repeat center / cover;
+		background-attachment: fixed;
+
+		font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+	}
+}
+
+
+@layer reset {
+	* {
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+	}
+
+	ul[class] {
+		list-style: none;
+	}
+
+	html {
+		height: 100%;
+		background: white;
+	}
+}
