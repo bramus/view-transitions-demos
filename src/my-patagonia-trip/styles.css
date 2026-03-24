@@ -32,9 +32,6 @@
 	html:active-view-transition-type(theme-toggle) * {
 		view-transition-name: none !important;
 	}
-	:root {
-		view-transition-name: none;
-	}
 
 	::view-transition-group(*) {
 		animation-duration: 500ms;
