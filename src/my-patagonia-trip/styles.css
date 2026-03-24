@@ -1,4 +1,4 @@
-@layer reset, base, layout, components, components.select, viewtransitions;
+@layer reset, base, layout, components, components.select, viewtransitions, warnings;
 
 @keyframes scale-up {
 	from {
@@ -585,5 +585,52 @@
 	html {
 		height: 100%;
 		background: var(--bg-color);
+	}
+}
+
+@layer warnings {
+
+	.warnings {
+		position: fixed;
+		bottom: 1em;
+		left: 1em;
+		right: 1em;
+		view-transition-name: warning; /* Don’t transition this with the rest of the stuff */
+        z-index: 9999;
+	}
+
+	@layer warning {
+		.warning {
+			box-sizing: border-box;
+			padding: 1em;
+			margin: 1em auto;
+			border: 1px solid #ccc;
+			background: rgba(255 255 205 / 0.9);
+			display: none;
+            color:black;
+			text-align: center;
+			width: fit-content;
+			font-weight: bold;
+		}
+
+		.warning > :first-child {
+			margin-top: 0;
+		}
+
+		.warning > :last-child {
+			margin-bottom: 0;
+		}
+
+		.warning a {
+			color: blue;
+		}
+		.warning--info {
+			border: 1px solid #123456;
+			background: rgb(205 230 255 / 0.8);
+		}
+		.warning--alarm {
+			border: 1px solid red;
+			background: #ff000010;
+		}
 	}
 }

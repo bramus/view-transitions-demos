@@ -4,6 +4,13 @@ const randomBetween = (min, max) => {
 
 const LOCAL_STORAGE_KEY = 'my-patagonia-trip-state';
 
+if (!("startViewTransition" in Element.prototype)) {
+	document.addEventListener('DOMContentLoaded', () => {
+		const $warning = document.querySelector('.warning[data-reason="element-scoped-view-transitions"]');
+		if ($warning) $warning.style.display = 'block';
+	});
+}
+
 const loadState = () => {
 	try {
 		const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
