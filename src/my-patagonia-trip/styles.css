@@ -784,11 +784,16 @@
 
 	.warnings {
 		position: fixed;
-		bottom: 1em;
+		top: 6em;
 		left: 1em;
 		right: 1em;
 		view-transition-name: warning; /* Don’t transition this with the rest of the stuff */
-        z-index: 9999;
+    z-index: 9999;
+
+		@media (max-width: 799px) {
+			top: unset;
+			bottom: 1em;
+		}
 	}
 
 	@layer warning {
@@ -802,6 +807,7 @@
             color:black;
 			text-align: center;
 			width: fit-content;
+			max-width: 90vw;
 			font-weight: bold;
 		}
 
