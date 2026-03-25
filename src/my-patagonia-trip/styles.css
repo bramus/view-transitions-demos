@@ -181,14 +181,12 @@
 			}
 
 			display: grid;
-			grid-template-areas:
-				"header"
-				"image"
-				"location"
-				"title";
+			grid-template-rows: subgrid;
+			grid-row: span 4;
+			row-gap: 0;
 
 			h2 {
-				grid-area: title;
+				grid-row: 4;
 				padding: 1rem;
 				padding-top: 0;
 			}
@@ -196,12 +194,12 @@
 			img {
 				width: 100%;
 				height: auto;
-				grid-area: image;
+				grid-row: 2;
 			}
 
 			p {
-				padding: 1rem;
-				padding-bottom: 0;
+				grid-row: 3;
+				padding: 1rem 0 0.15rem 1rem;
 				font-size: 0.75em;
 			}
 
@@ -217,7 +215,7 @@
 			}
 
 			header {
-				grid-area: header;
+				grid-row: 1;
 
 				display: flex;
 				justify-content: space-between;
