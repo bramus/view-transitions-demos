@@ -29,9 +29,16 @@
 }
 
 @layer viewtransitions {
+	/* Keep the document theme-toggle VT performant by not capturing any children */
 	html:active-view-transition-type(theme-toggle) * {
 		view-transition-name: none !important;
 	}
+
+	/* Keep the entries filter VT performant by not capturing any children of the entries */
+	#entries:active-view-transition .entry * {
+		view-transition-name: none !important;
+	}
+	
 
 	::view-transition-group(*) {
 		animation-duration: 500ms;
@@ -55,16 +62,20 @@
 	}
 
 	/* Animations to use when filtering. */
-	.entries::view-transition-new(.entry):not(:only-child) {
+	#entries::view-transition-new(.entry):not(:only-child) {
 		animation: none;
 	}
-	.entries::view-transition-old(.entry):not(:only-child) {
+	#entries::view-transition-old(.entry):not(:only-child) {
 		display: none;
 	}
-	.entries::view-transition-new(.entry):only-child {
+	#entries::view-transition-group(.entry) {
+		overflow: clip;
+		border-radius: 1.35rem; /* Same as the real entry */
+	}
+	#entries::view-transition-new(.entry):only-child {
 		animation-name: scale-up;
 	}
-	.entries::view-transition-old(.entry):only-child {
+	#entries::view-transition-old(.entry):only-child {
 		animation-name: scale-down;
 	}
 
