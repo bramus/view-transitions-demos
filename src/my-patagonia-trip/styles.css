@@ -551,7 +551,8 @@
 		height: min-content;
 
 		position: sticky;
-		top: 1rem;
+		top: 2rem;
+		margin-top: 5rem;
 
 		display: flex;
 		flex-direction: column;
@@ -763,10 +764,6 @@
 	html {
 		height: 100%;
 		background: var(--bg-color);
-		overflow-x: hidden;
-	}
-
-	body {
 		overflow-x: hidden;
 	}
 }
