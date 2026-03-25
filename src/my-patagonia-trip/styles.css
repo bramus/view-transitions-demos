@@ -242,7 +242,7 @@
 		}
 
 		#selected:empty::after {
-			content: "(no selected activities)";
+			content: "(Add activities from the grid using the Add buttons)";
 			font-style: italic;
 		}
 
@@ -544,8 +544,9 @@
 	#sidebar {
 		grid-area: aside;
 
-		background: var(--sidebar-bg);
-		color: var(--sidebar-text);
+		background: var(--entry-checked-bg);
+		color: var(--entry-checked-text);
+		border: 1px solid var(--select-border);
 		border-radius: 1.35rem;
 		padding: 1rem;
 		height: min-content;
