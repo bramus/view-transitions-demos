@@ -228,6 +228,7 @@
 					display: flex;
 					flex-direction: row;
 					gap: 0.5em;
+					align-items: center;
 
 					li {
 						background: var(--pill-bg);
@@ -236,6 +237,7 @@
 						font-size: 0.75rem;
 						color: var(--text-color);
 						text-transform: capitalize;
+						height: min-content;
 					}
 				}
 			}
