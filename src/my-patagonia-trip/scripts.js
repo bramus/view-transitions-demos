@@ -19,16 +19,27 @@ const loadState = () => {
 	return { season: null, type: null, entries: [] };
 };
 
-const updateShareButton = (state) => {
+const updateUIState = (state) => {
+	const count = state.entries ? state.entries.length : 0;
+
 	const $shareBtn = document.querySelector('#sidebar footer button');
-	if ($shareBtn && state.entries) {
-		$shareBtn.disabled = state.entries.length === 0;
+	if ($shareBtn) {
+		$shareBtn.disabled = count === 0;
+	}
+
+	const $toggleBtn = document.getElementById('sidebar-toggle');
+	if ($toggleBtn) {
+		if (count > 0) {
+			$toggleBtn.dataset.count = count;
+		} else {
+			delete $toggleBtn.dataset.count;
+		}
 	}
 };
 
 const saveState = (state) => {
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
-	updateShareButton(state);
+	updateUIState(state);
 };
 
 const THEME_STORAGE_KEY = 'my-patagonia-trip-theme';
@@ -348,5 +359,5 @@ document.getElementById('sidebar-close').addEventListener('click', () => {
 			document.querySelector('#selected').appendChild($selectedEntry);
 		}
 	});
-	updateShareButton(state);
+	updateUIState(state);
 })();

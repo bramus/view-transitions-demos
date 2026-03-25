@@ -420,8 +420,6 @@
 		}
 	}
 
-
-
 	@media (min-width: 800px) {
 		.mobile-toggle, .mobile-close {
 			display: none !important;
@@ -451,6 +449,29 @@
 
 	button.btn-icon:hover, button.btn-icon:focus-visible {
 		background: var(--pill-bg);
+	}
+
+	#sidebar-toggle {
+		position: relative !important; /* battle with layer order … */
+	}
+
+	#sidebar-toggle[data-count]::after {
+		content: attr(data-count);
+		position: absolute;
+		bottom: -4px;
+		left: -6px;
+		background: #ff3b3b;
+		color: white;
+		font-size: 0.75rem;
+		font-weight: bold;
+		min-width: 20px;
+		height: 20px;
+		line-height: 20px;
+		text-align: center;
+		border-radius: 10px;
+		padding: 0 4px;
+		box-sizing: border-box;
+		pointer-events: none;
 	}
 
 	.mobile-close {
