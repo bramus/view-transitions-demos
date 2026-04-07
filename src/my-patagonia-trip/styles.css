@@ -38,7 +38,7 @@
 	#entries:active-view-transition .entry * {
 		view-transition-name: none !important;
 	}
-	
+
 
 	::view-transition-group(*) {
 		animation-duration: 500ms;
@@ -192,12 +192,14 @@
 			}
 
 			display: grid;
-			grid-template-rows: subgrid;
-			grid-row: span 4;
-			row-gap: 0;
+			grid-template-areas:
+				"header"
+				"image"
+				"location"
+				"title";
 
 			h2 {
-				grid-row: 4;
+				grid-area: title;
 				padding: 1rem;
 				padding-top: 0;
 			}
@@ -205,11 +207,11 @@
 			img {
 				width: 100%;
 				height: auto;
-				grid-row: 2;
+				grid-area: image;
 			}
 
 			p {
-				grid-row: 3;
+				grid-area: location;
 				padding: 1rem 0 0.15rem 1rem;
 				font-size: 0.75em;
 			}
@@ -226,7 +228,7 @@
 			}
 
 			header {
-				grid-row: 1;
+				grid-area: header;
 
 				display: flex;
 				justify-content: space-between;
@@ -315,7 +317,7 @@
 		select::picker(select) {
 			appearance: base-select;
 		}
-		
+
 		select {
 			color: var(--select-text);
 			background: var(--select-bg);
@@ -325,7 +327,7 @@
 			border: 1px solid var(--select-border);
 			cursor: pointer;
 
-			transition: 
+			transition:
 				background .2s ease,
 				color .2s ease,
 				border-color .2s ease
@@ -349,10 +351,10 @@
 
 		select::picker(select) {
 			transform-origin: 50% 0%;
-			transition: 
+			transition:
 				opacity .2s ease,
-				transform .2s ease, 
-				display .2s allow-discrete, 
+				transform .2s ease,
+				display .2s allow-discrete,
 				overlay .2s allow-discrete
 			;
 
@@ -669,7 +671,7 @@
 		#header #main-nav > ul li:last-child {
 			border-bottom: none;
 		}
-		
+
 		#header #main-nav > ul a {
 			font-size: 1.25rem;
 		}
