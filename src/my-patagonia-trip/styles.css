@@ -790,7 +790,8 @@
 		left: 1em;
 		right: 1em;
 		view-transition-name: warning; /* Don’t transition this with the rest of the stuff */
-    z-index: 9999;
+    	z-index: 9999;
+		pointer-events: none;
 
 		@media (max-width: 799px) {
 			top: unset;
