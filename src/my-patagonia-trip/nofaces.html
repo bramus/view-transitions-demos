@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>My Patagonia Trip (Web UX, re-imagined)</title>
+	<link rel="stylesheet" href="styles.css">
+	<script src="scripts.js" type="module"></script>
+</head>
+
+<body>
+	<header id="header">
+		<button id="nav-toggle" class="mobile-toggle btn-icon" aria-label="Open Menu">
+			<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+				<line x1="3" y1="12" x2="21" y2="12"></line>
+				<line x1="3" y1="6" x2="21" y2="6"></line>
+				<line x1="3" y1="18" x2="21" y2="18"></line>
+			</svg>
+		</button>
+		<h1>NSEW</h1>
+		<nav id="main-nav">
+			<button id="nav-close" class="mobile-close btn-icon" aria-label="Close Menu">
+				<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+					<line x1="18" y1="6" x2="6" y2="18"></line>
+					<line x1="6" y1="6" x2="18" y2="18"></line>
+				</svg>
+			</button>
+			<ul class="nav">
+				<li><a href="#">About</a></li>
+				<li><a href="#">Destinations</a></li>
+				<li><a href="#">Blog</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+			<fieldset id="theme-toggle" class="theme-toggle">
+				<legend class="visually-hidden">Theme</legend>
+				<label>
+					<input type="radio" name="theme-toggle" value="light">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="12" cy="12" r="5"></circle>
+						<line x1="12" y1="1" x2="12" y2="3"></line>
+						<line x1="12" y1="21" x2="12" y2="23"></line>
+						<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+						<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+						<line x1="1" y1="12" x2="3" y2="12"></line>
+						<line x1="21" y1="12" x2="23" y2="12"></line>
+						<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+						<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+					</svg>
+					<span class="visually-hidden">Light</span>
+				</label>
+				<label>
+					<input type="radio" name="theme-toggle" value="system" checked>
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+						<line x1="8" y1="21" x2="16" y2="21"></line>
+						<line x1="12" y1="17" x2="12" y2="21"></line>
+					</svg>
+					<span class="visually-hidden">System</span>
+				</label>
+				<label>
+					<input type="radio" name="theme-toggle" value="dark">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+					</svg>
+					<span class="visually-hidden">Dark</span>
+				</label>
+			</fieldset>
+		</nav>
+		<button id="sidebar-toggle" class="mobile-toggle btn-icon" aria-label="Open Sidebar">
+			<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+				<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+				<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+			</svg>
+		</button>
+	</header>
+
+	<main>
+		<form action="#" id="filter">
+			<legend>Filter by</legend>
+			<select name="seasons">
+				<button>Season: <selectedcontent></selectedcontent></button>
+				<option value="">All</option>
+				<option value="autumn">Autumn</option>
+				<option value="winter">Winter</option>
+				<option value="spring">Spring</option>
+				<option value="summer">Summer</option>
+			</select>
+			<select name="types">
+				<button>Type: <selectedcontent></selectedcontent></button>
+				<option value="">All</option>
+				<option value="adventurous">Adventurous</option>
+				<option value="nature">Nature</option>
+				<option value="wildlife">Wildlife</option>
+				<option value="sightseeing">Sightseeing</option>
+				<option value="relaxing">Relaxing</option>
+			</select>
+		</form>
+
+		<h1>Top Results</h1>
+
+		<section id="entries">
+			<div id="entry-1" class="entry" data-type="adventurous" data-season="winter spring" data-title="Snowboarding Ride" data-duration="8 hours" data-photo="img/entry-1.jpg">
+				<h2>Snowboarding Ride</h2>
+				<p>Neuquen, Patagonia, Argentina</p>
+				<img src="img/entry-1.png" alt="A pristine snow-covered mountain slope in Patagonia, Neuquén, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Adventurous</li>
+						<li class="duration">8 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-2" class="entry" data-type="nature" data-season="autumn winter" data-title="Mountain Hike" data-duration="4 hours" data-photo="img/entry-2.png">
+				<h2>Mountain Hike</h2>
+				<p>Neuquen, Patagonia, Argentina</p>
+				<img src="img/entry-2.png" alt="A scenic mountain hiking trail winding through autumn trees with changing leaf colors, located in Neuquén, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Nature</li>
+						<li class="duration">4 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-3" class="entry" data-type="adventurous" data-season="summer" data-title="Rappel Adventure" data-duration="12 hours" data-photo="img/entry-3.png">
+				<h2>Rappel Adventure</h2>
+				<p>Neuquen, Patagonia, Argentina</p>
+				<img src="img/entry-3.png" alt="A steep cliff wall in Neuquén, Patagonia, Argentina suitable for rock climbing and rappelling.">
+				<header>
+					<ul>
+						<li class="type">Adventurous</li>
+						<li class="duration">12 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-4" class="entry" data-type="relaxing" data-season="spring" data-title="Noon BBQ" data-duration="4 hours" data-photo="img/entry-4.png">
+				<h2>Noon BBQ</h2>
+				<p>Neuquen, Patagonia, Argentina</p>
+				<img src="img/entry-4.png" alt="Traditional outdoor grill with fire wood and hot coals cooking Patagonian Asado in a rustic setting, Neuquén, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Relaxing</li>
+						<li class="duration">4 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-5" class="entry" data-type="nature" data-season="summer spring" data-title="Kayaking in the Lake District" data-duration="4 hours" data-photo="img/entry-5.png">
+				<h2>Kayaking in the Lake District</h2>
+				<p>Bariloche, Patagonia, Argentina</p>
+				<img src="img/entry-5.png" alt="A very calm clear lake surrounded by majestic mountains in Bariloche, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Nature</li>
+						<li class="duration">4 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-6" class="entry" data-type="wildlife" data-season="winter spring summer" data-title="Whale Watching" data-duration="8 hours" data-photo="img/entry-6.png">
+				<h2>Whale Watching</h2>
+				<p>Puerto Madryn, Patagonia, Argentina</p>
+				<img src="img/entry-6.png" alt="A beautiful whale tail diving back into deep blue ocean water near Puerto Madryn, Patagonia coast, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Wildlife</li>
+						<li class="duration">8 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-7" class="entry" data-type="adventurous" data-season="summer autumn winter spring" data-title="Trekking on Perito Moreno Glacier" data-duration="12 hours" data-photo="img/entry-7.png">
+				<h2>Trekking on Perito Moreno Glacier</h2>
+				<p>El Calafate, Patagonia, Argentina</p>
+				<img src="img/entry-7.png" alt="Massive icy towers and deep blue crevasses on the Perito Moreno Glacier in El Calafate, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Adventurous</li>
+						<li class="duration">12 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-8" class="entry" data-type="relaxing" data-season="spring summer autumn" data-title="Fly Fishing" data-duration="8 hours" data-photo="img/entry-8.png">
+				<h2>Fly Fishing</h2>
+				<p>San Martín de los Andes, Patagonia, Argentina</p>
+				<img src="img/entry-8.png" alt="A peaceful crystal clear mountain river in San Martín de los Andes, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Relaxing</li>
+						<li class="duration">8 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-9" class="entry" data-type="sightseeing" data-season="spring summer autumn" data-title="Horseback Riding on an Estancia" data-duration="4 hours" data-photo="img/entry-9.png">
+				<h2>Horseback Riding on an Estancia</h2>
+				<p>El Chaltén, Patagonia, Argentina</p>
+				<img src="img/entry-9.png" alt="Vast open plains of a traditional Patagonian ranch (estancia) with majestic Andes mountains behind, El Chaltén, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Sightseeing</li>
+						<li class="duration">4 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-10" class="entry" data-type="sightseeing" data-season="summer" data-title="Explore the Marble Caves" data-duration="12 hours" data-photo="img/entry-10.png">
+				<h2>Explore the Marble Caves</h2>
+				<p>Chile Chico, Patagonia, Chile</p>
+				<img src="img/entry-10.png" alt="Inside colorful natural blue marble cave formations carved by turquoise lake water in Chile Chico, Patagonia, Chile.">
+				<header>
+					<ul>
+						<li class="type">Sightseeing</li>
+						<li class="duration">12 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-11" class="entry" data-type="wildlife" data-season="spring summer" data-title="Visit the Penguin Colony at Punta Tombo" data-duration="8 hours" data-photo="img/entry-11.png">
+				<h2>Visit the Penguin Colony at Punta Tombo</h2>
+				<p>Trelew, Patagonia, Argentina</p>
+				<img src="img/entry-11.png" alt="A gravel shore beach covered in hundreds of small Magellanic penguins standing on stones, Punta Tombo, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Wildlife</li>
+						<li class="duration">8 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-12" class="entry" data-type="nature" data-season="summer autumn spring" data-title="Hike to Fitz Roy" data-duration="1 day" data-photo="img/entry-12.png">
+				<h2>Hike to Fitz Roy</h2>
+				<p>El Chaltén, Patagonia, Argentina</p>
+				<img src="img/entry-12.png" alt="The towering granite spires of Mount Fitz Roy standing tall against a blue sky in El Chaltén, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Nature</li>
+						<li class="duration">1 day</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-13" class="entry" data-type="adventurous" data-season="winter" data-title="Skiing in Bariloche" data-duration="1 day" data-photo="img/entry-13.png">
+				<h2>Skiing in Bariloche</h2>
+				<p>Bariloche, Patagonia, Argentina</p>
+				<img src="img/entry-13.png" alt="Deep powder snow trails running down from the summit of Cerro Catedral in Bariloche, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Adventurous</li>
+						<li class="duration">1 day</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-14" class="entry" data-type="wildlife" data-season="spring summer autumn" data-title="Bird watching in the Valdes Peninsula" data-duration="4 hours" data-photo="img/entry-14.png">
+				<h2>Bird watching in the Valdes Peninsula</h2>
+				<p>Puerto Pirámides, Patagonia, Argentina</p>
+				<img src="img/entry-14.png" alt=" coastal cliff edge overlooking a tranquil ocean bay in Puerto Pirámides, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Wildlife</li>
+						<li class="duration">4 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-15" class="entry" data-type="adventurous" data-season="summer spring" data-title="Rafting the Manso River" data-duration="8 hours" data-photo="img/entry-15.png">
+				<h2>Rafting the Manso River</h2>
+				<p>Bariloche, Patagonia, Argentina</p>
+				<img src="img/entry-15.png" alt="Turbulent turquoise white-water rapids flowing through a green canyon on the Manso River, Bariloche, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Adventurous</li>
+						<li class="duration">8 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-16" class="entry" data-type="sightseeing" data-season="autumn spring summer" data-title="Explore the Cueva de las Manos" data-duration="4 hours" data-photo="img/entry-16.png">
+				<h2>Explore the Cueva de las Manos</h2>
+				<p>Perito Moreno, Patagonia, Argentina</p>
+				<img src="img/entry-16.png" alt="Ancient prehistoric cave wall art displaying rows of painted hand prints in natural ochre colors in Cueva de las Manos, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Sightseeing</li>
+						<li class="duration">4 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-17" class="entry" data-type="sightseeing" data-season="summer spring" data-title="Drive the Route of the Seven Lakes" data-duration="2 days" data-photo="img/entry-17.png">
+				<h2>Drive the Route of the Seven Lakes</h2>
+				<p>Villa La Angostura, Patagonia, Argentina</p>
+				<img src="img/entry-17.png" alt="A curved paved highway winding along a dark blue lake with forested mountains under a cloudy sky, Villa La Angostura, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Sightseeing</li>
+						<li class="duration">2 days</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-18" class="entry" data-type="adventurous" data-season="winter spring" data-title="Ice Climbing on Viedma Glacier" data-duration="12 hours" data-photo="img/entry-18.png">
+				<h2>Ice Climbing on Viedma Glacier</h2>
+				<p>El Chaltén, Patagonia, Argentina</p>
+				<img src="img/entry-18.png" alt="A vertical ice wall glowing with deep neon blue light on Viedma Glacier in El Chaltén, Patagonia, Argentina. Smooth ice sheets, no people.">
+				<header>
+					<ul>
+						<li class="type">Adventurous</li>
+						<li class="duration">12 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-19" class="entry" data-type="adventurous" data-season="summer" data-title="Scuba Diving in Puerto Madryn" data-duration="8 hours" data-photo="img/entry-19.png">
+				<h2>Scuba Diving in Puerto Madryn</h2>
+				<p>Puerto Madryn, Patagonia, Argentina</p>
+				<img src="img/entry-19.png" alt="Sunlight rays piercing underwater in kelp forests with swimming sea lions in Puerto Madryn, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Adventurous</li>
+						<li class="duration">8 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-20" class="entry" data-type="sightseeing" data-season="summer autumn winter spring" data-title="Visit Ushuaia, 'The End of the World'" data-duration="2 days" data-photo="img/entry-20.png">
+				<h2>Visit Ushuaia, 'The End of the World'</h2>
+				<p>Ushuaia, Patagonia, Argentina</p>
+				<img src="img/entry-20.png" alt="Picturesque colorful houses facing the snowy Darwin mountain range behind Beagle Channel harbor, Ushuaia, Tierra del Fuego, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Sightseeing</li>
+						<li class="duration">2 days</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-21" class="entry" data-type="sightseeing" data-season="summer autumn spring" data-title="Sailing the Beagle Channel" data-duration="4 hours" data-photo="img/entry-21.png">
+				<h2>Sailing the Beagle Channel</h2>
+				<p>Ushuaia, Patagonia, Argentina</p>
+				<img src="img/entry-21.png" alt="The iconic red and white beacon of Les Eclaireurs lighthouse on a barren islet in the cold waters of Beagle Channel, Ushuaia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Sightseeing</li>
+						<li class="duration">4 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-22" class="entry" data-type="adventurous" data-season="summer autumn spring" data-title="Mountain Biking in the Andes" data-duration="8 hours" data-photo="img/entry-22.png">
+				<h2>Mountain Biking in the Andes</h2>
+				<p>San Carlos de Bariloche, Patagonia, Argentina</p>
+				<img src="img/entry-22.png" alt="Rugged narrow mountain dirt bike path slicing through alpine tall grass in the Andes near Bariloche, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Adventurous</li>
+						<li class="duration">8 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-23" class="entry" data-type="adventurous" data-season="summer autumn spring" data-title="Rock Climbing in El Chaltén" data-duration="12 hours" data-photo="img/entry-23.png">
+				<h2>Rock Climbing in El Chaltén</h2>
+				<p>El Chaltén, Patagonia, Argentina</p>
+				<img src="img/entry-23.png" alt="Vast vertical golden granite slabs bathed in warm sunset light near El Chaltén peaks, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Adventurous</li>
+						<li class="duration">12 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+			<div id="entry-24" class="entry" data-type="relaxing" data-season="autumn winter spring" data-title="Stargazing in the desert" data-duration="4 hours" data-photo="img/entry-24.png">
+				<h2>Stargazing in the desert</h2>
+				<p>Neuquen, Patagonia, Argentina</p>
+				<img src="img/entry-24.png" alt="Stunning view of the cosmos, Milky Way galaxy illuminating the starry night sky above dark silhouette peaks of Neuquén desert, Patagonia, Argentina.">
+				<header>
+					<ul>
+						<li class="type">Relaxing</li>
+						<li class="duration">4 hours</li>
+					</ul>
+					<button>Add</button>
+				</header>
+			</div>
+		</section>
+	</main>
+
+	<aside id="sidebar">
+		<div class="sidebar-header">
+			<h1>My Patagonia Trip</h1>
+			<button id="sidebar-close" class="mobile-close btn-icon" aria-label="Close Sidebar">
+				<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+					<line x1="18" y1="6" x2="6" y2="18"></line>
+					<line x1="6" y1="6" x2="18" y2="18"></line>
+				</svg>
+			</button>
+		</div>
+
+		<div>
+			<ul id="selected" class></ul>
+		</div>
+
+		<div class="weather"></div>
+
+		<footer>
+			<button>Share</button>
+		</footer>
+	</aside>
+	<div class="warnings">
+		<div class="warning" data-reason="element-scoped-view-transitions">
+			<p>This demo requires Element-Scoped View Transitions. Try Chrome 147 or newer.</p>
+		</div>
+	</div>
+</body>
+
+</html>
