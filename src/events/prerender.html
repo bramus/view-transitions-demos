@@ -42,7 +42,7 @@
 		navigation.addEventListener('currententrychange', logit);
 	</script>
 	<script type="module">
-		document.querySelector('a[href="/events/prerender"]').setAttribute('href', `/events/prerender?r=${Math.random().toFixed(6)}`)
+		document.querySelector('a[href="/events/prerender.html"]').setAttribute('href', `/events/prerender.html?r=${Math.random().toFixed(6)}`)
 	</script>
 	<style>
 		@view-transition {
@@ -71,6 +71,6 @@
 <body>
 	<h1>Events Logger</h1>
 	<a href="/events/logger.html" target="_blank">open logger <em>(new window)</em></a>
-	<a href="/events/prerender">navigate (with prerender)</a>
+	<a href="/events/prerender.html">navigate (with prerender)</a>
 </body>
 </html>
